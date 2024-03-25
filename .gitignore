@@ -1,0 +1,8 @@
+# Ignore Terraform artifacts
+*.tfstate
+*.tfstate.backup
+*.tfplan
+.terraform/
+gcp-workspace-full/.terraform/
+*/.terraform/
+**/.terraform/
