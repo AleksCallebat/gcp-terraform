@@ -29,5 +29,3 @@ variable "delegate_from" {
   default     = ["<ENTER YOUR SERVICE ACCOUNT PROVISIONNING>"]
   # This is most likely going to be the email of a service Account used to run this code.
 }
-
-

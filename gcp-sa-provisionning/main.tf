@@ -159,3 +159,18 @@ resource "google_project_iam_member" "sa2_can_usePSC" {
   project = var.google_project
 
 }
+
+# IF NEED TO DEPLOY THE PSC ENDPOINT VIA THE SAME SCRIPT, UNCOMMENT THE FOLLOWING PERMISSIONS : 
+# resource "google_project_iam_member" "sa2_can_usePSC" {
+#   role    = "roles/compute.networkAdmin"
+#   member  = "serviceAccount:${google_service_account.sa2.email}"
+#   project = var.google_project
+
+# }
+
+# resource "google_project_iam_member" "sa2_can_usePSC" {
+#   role    = "roles/owner"
+#   member  = "serviceAccount:${google_service_account.sa2.email}"
+#   project = var.google_project
+# s
+# }
