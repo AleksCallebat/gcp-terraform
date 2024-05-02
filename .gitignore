@@ -8,3 +8,4 @@ gcp-workspace-full/.terraform/
 **/.terraform/
 *.json
 *.hcl
+*.terraform.lock.hcl
