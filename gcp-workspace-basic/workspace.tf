@@ -29,7 +29,7 @@ data "databricks_group" "admins" {
 resource "databricks_user" "me" {
   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
   provider   = databricks.workspace
-  user_name  = "aleksander.callebat@databricks.com" //data.google_client_openid_userinfo.me.email
+  user_name  = data.google_client_openid_userinfo.me.email
 }
 
 

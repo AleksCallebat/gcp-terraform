@@ -33,7 +33,7 @@ resource "databricks_mws_customer_managed_keys" "this" {
 					kms_key_id   = local.cmek_resource_id # change this to var.cmek_resource_id if using a pre-created key
 				}
 				use_cases = ["STORAGE","MANAGED"]
-			      lifecycle {
+        lifecycle {
               ignore_changes = all
         }
 }
