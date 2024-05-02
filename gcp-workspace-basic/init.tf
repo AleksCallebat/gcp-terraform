@@ -2,6 +2,8 @@ terraform {
   required_providers {
     databricks = {
       source = "databricks/databricks"
+      version = "=1.24.0"
+
     }
     google = {
       source  = "hashicorp/google"
@@ -27,6 +29,8 @@ provider "databricks" {
 
 }
 
+
+
 data "google_client_openid_userinfo" "me" {
 }
 
@@ -39,4 +43,10 @@ resource "random_string" "suffix" {
   special = false
   upper   = false
   length  = 6
+}
+
+provider "databricks" {
+  alias                  = "workspace"
+  host                   = databricks_mws_workspaces.databricks_workspace.workspace_url
+  google_service_account = var.databricks_google_service_account
 }

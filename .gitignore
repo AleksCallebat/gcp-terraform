@@ -6,3 +6,5 @@
 gcp-workspace-full/.terraform/
 */.terraform/
 **/.terraform/
+*.json
+*.hcl
