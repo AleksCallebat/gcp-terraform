@@ -1,3 +1,7 @@
+variable "databricks_account_id" {}
+variable "new_admin_account" {}
+variable "old_admin_account" {}
+
 terraform {
   required_providers {
     databricks = {
@@ -11,16 +15,11 @@ terraform {
 
   }
 }
-provider "google" {
-  project = var.project
-  impersonate_service_account = var.databricks_google_service_account
-
-}
-
-
 provider "databricks" {
-  alias      = "accounts"
+  alias      = "databricks_old"
   host       = "https://accounts.gcp.databricks.com"
-  google_service_account = var.databricks_google_service_account
+  google_service_account = var.old_admin_account
   account_id = var.databricks_account_id
+
 }
+

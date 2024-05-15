@@ -1,13 +1,14 @@
 variable "databricks_account_id" {}
 variable "databricks_account_console_url" {}
 variable "databricks_workspace_name" {}
-variable "databricks_admin_user" {}
+variable "databricks_user_email" {}
 variable "google_vpc_id" {}
-variable "gke_node_subnet" {}
-variable "gke_pod_subnet" {}
-variable "gke_service_subnet" {}
+variable "node_subnet_name" {}
+variable "pod_subnet_name" {}
+variable "service_subnet_name" {}
 variable "gke_master_ip_range" {}
 variable "cmek_resource_id" {}
+variable "network_config_name" {}
 # variable "google_pe_subnet" {}
 # variable "workspace_pe" {}
 # variable "relay_pe" {}
@@ -15,6 +16,7 @@ variable "cmek_resource_id" {}
 # variable "workspace_pe_ip_name" {}
 # variable "relay_service_attachment" {}
 # variable "workspace_service_attachment" {}
+# variable "is_granted_admin" {}
 
 data "google_client_openid_userinfo" "me" {}
 data "google_client_config" "current" {}
@@ -28,18 +30,21 @@ https://docs.gcp.databricks.com/archive/compute/configure.html#google-service-ac
 */
 
 
-resource "google_service_account" "databricks" {
-    account_id   = "alek-tf-psc-sa-gke" #need to use "databricks"
-    display_name = "Databricks SA for GKE nodes"
+data "google_service_account" "databricks" {
+    provider = google.deployment
+    depends_on = [ module.dbx-admin-grant.is_granted_admin, module.sa-provisionning]
+    account_id   = "databricks" #need to use "databricks"
+    # display_name = "Databricks SA for GKE nodes"
     project = var.google_project_name
 }
 
 # # assign role to the gke default SA
 resource "google_project_iam_binding" "databricks_gke_node_role" {
-  project = "${var.google_project_name}"
+  provider = google.deployment
+  project = var.google_project_name
   role = "roles/container.nodeServiceAccount"
   members = [
-    "serviceAccount:${google_service_account.databricks.email}"
+    "serviceAccount:${data.google_service_account.databricks.email}"
   ]
 }
 
@@ -125,28 +130,31 @@ resource "random_string" "databricks_suffix" {
 # }
 
 # Provision databricks network configuration
-  resource "databricks_mws_networks" "databricks_network" {
-  provider     = databricks.accounts
-  account_id   = var.databricks_account_id
-  # name needs to be of length 3-30 incuding [a-z,A-Z,-_]
-  network_name = "${var.google_shared_vpc_project}-nw-${random_string.databricks_suffix.result}"
-  gcp_network_info {
-    network_project_id    = var.google_shared_vpc_project
-    vpc_id                = var.google_vpc_id
-    subnet_id             = var.gke_node_subnet
-    pod_ip_range_name     = var.gke_pod_subnet
-    service_ip_range_name = var.gke_service_subnet
-    subnet_region         = var.google_region
-  }
-  # vpc_endpoints {
-  #   dataplane_relay = [databricks_mws_vpc_endpoint.relay_vpce.vpc_endpoint_id]
-  #   rest_api        = [databricks_mws_vpc_endpoint.workspace_vpce.vpc_endpoint_id]
-  # }
-}
+# resource "databricks_mws_networks" "databricks_network" {
+#   provider     = databricks.accounts
+#   account_id   = var.databricks_account_id
+#   # name needs to be of length 3-30 incuding [a-z,A-Z,-_]
+#   # network_name = "${var.google_shared_vpc_project}-nw-${random_string.databricks_suffix.result}"
+#   network_name = var.network_config_name
+#   gcp_network_info {
+#     network_project_id    = var.google_shared_vpc_project
+#     vpc_id                = var.google_vpc_id
+#     subnet_id             = var.node_subnet_name
+#     pod_ip_range_name     = var.pod_subnet_name
+#     service_ip_range_name = var.service_subnet_name
+#     subnet_region         = var.google_region
+#   }
+#   # vpc_endpoints {
+#   #   dataplane_relay = [databricks_mws_vpc_endpoint.relay_vpce.vpc_endpoint_id]
+#   #   rest_api        = [databricks_mws_vpc_endpoint.workspace_vpce.vpc_endpoint_id]
+#   # }
+# }
 # Provision databricks workspace in a customer managed vpc
 # https://docs.gcp.databricks.com/administration-guide/account-settings-gcp/workspaces.html#create-a-workspace-using-the-account-console
 
 resource "databricks_mws_workspaces" "databricks_workspace" {
+  depends_on = [ module.dbx-admin-grant.is_granted_admin ]
+
   provider       = databricks.accounts
   account_id     = var.databricks_account_id
   workspace_name = var.databricks_workspace_name
@@ -176,7 +184,7 @@ data "databricks_group" "admins" {
 resource "databricks_user" "me" {
   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
   provider   = databricks.workspace
-  user_name  = var.databricks_admin_user //data.google_client_openid_userinfo.me.email
+  user_name  = var.databricks_user_email //data.google_client_openid_userinfo.me.email
 }
 
 
@@ -215,12 +223,14 @@ resource "databricks_ip_access_list" "this" {
     "18.158.110.150/32",
     "18.193.11.166/32",
     "44.230.222.179/32",
-    "137.83.235.84"
+    "137.83.235.84",
+    "176.188.12.186",
+    "130.41.123.37"
     ]
 
 }
-output "service_account" {
-    value       = "Default SA attached to GKE nodes ${google_service_account.databricks.email}"
+output "gke_service_account" {
+    value       = "Default SA attached to GKE nodes ${data.google_service_account.databricks.email}"
 }
 
 output "workspace_url" {
@@ -231,6 +241,6 @@ output "workspace_url" {
 #   value = databricks_workspace_conf.this.custom_config["enableIpAccessLists"]
 # }
 
-output "ingress_firewall_ip_allowed" {
-  value = databricks_ip_access_list.this.ip_addresses
-}
+# output "ingress_firewall_ip_allowed" {
+#   value = databricks_ip_access_list.this.ip_addresses
+# }

@@ -2,6 +2,8 @@ variable "workspace_url" {
 }
 variable "databricks_workspace_id" {
 }
+variable "workspace_name" {
+}
 variable "location" {
 }
 variable "metastore_name" {
@@ -19,3 +21,4 @@ variable "admin_user" {
 
 variable "storage_name" {
 }
+

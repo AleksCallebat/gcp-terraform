@@ -9,3 +9,4 @@ gcp-workspace-full/.terraform/
 *.json
 *.hcl
 *.terraform.lock.hcl
+legacy/
