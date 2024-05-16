@@ -28,7 +28,19 @@ variable "nat_name" {}
 variable "router_name" {}
 variable "svc_ip_cidr_range" {}
 
+variable "relay_pe_name" {}
+variable "relay_service_attachment" {}
+variable "relay_pe_ip_name" {}
+variable "google_pe_subnet_name" {}
+variable "google_pe_subnet_range" {}
+variable "workspace_pe_name" {}
+variable "workspace_service_attachment" {}
+variable "workspace_pe_ip_name" {}
 
 variable "databricks_account_console_url" {}
 variable "databricks_workspace_name" {}
 variable "databricks_user_email" {}
+
+variable "uc_storage_name" {}
+variable "metastore_name" {}
+variable "metastore_exists" {}

@@ -17,3 +17,18 @@ provider "google" {
 
 }
 
+provider "databricks" {
+  alias = "workspace"
+  host = module.gcp-workspace-full.workspace_url
+  google_service_account = module.gcp-workspace-full.service_account
+  account_id = var.databricks_account_id
+  
+}
+
+provider "databricks" {
+  alias = "accounts"
+  host = "https://accounts.gcp.databricks.com"
+  google_service_account = module.gcp-workspace-full.service_account
+  account_id = var.databricks_account_id
+}
+

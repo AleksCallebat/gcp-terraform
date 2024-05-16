@@ -33,6 +33,14 @@ module "gcp-workspace-full" {
   svc_ip_cidr_range = var.svc_ip_cidr_range
   priviledged_sa_name = var.priviledged_sa_name 
   random_string = random_string.suffix.result
+  relay_pe_name = var.relay_pe_name
+  relay_service_attachment = var.relay_service_attachment
+  workspace_service_attachment = var.workspace_service_attachment
+  relay_pe_ip_name = var.relay_pe_ip_name
+  google_pe_subnet_name = var.google_pe_subnet_name
+  google_pe_subnet_range = var.google_pe_subnet_range
+  workspace_pe_name = var.workspace_pe_name
+  workspace_pe_ip_name = var.workspace_pe_ip_name
  
   delegate_from = var.delegate_from
   role_name = var.role_name

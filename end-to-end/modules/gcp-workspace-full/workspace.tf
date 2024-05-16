@@ -67,90 +67,7 @@ resource "random_string" "databricks_suffix" {
   length  = 2
 }
 
-# Provision databricks network configuration > backend vpc endpoint
-# resource "databricks_mws_vpc_endpoint" "relay_vpce" {
-#   depends_on = [ google_compute_forwarding_rule.backend_psc_ep ]
-#   provider = databricks.accounts
-#   account_id          = var.databricks_account_id
-#   vpc_endpoint_name   = "backend-relay-ep-${random_string.databricks_suffix.result}"
-#   gcp_vpc_endpoint_info {
-#     project_id        = var.google_shared_vpc_project
-#     psc_endpoint_name = var.relay_pe
-#     endpoint_region   = var.google_region
-# }
-# }
 
-# Provision databricks network configuration > frontend vpc endpoint
-# resource "databricks_mws_vpc_endpoint" "workspace_vpce" {
-#   depends_on = [ google_compute_forwarding_rule.frontend_psc_ep ]
-#   provider = databricks.accounts
-#   account_id          = var.databricks_account_id
-#   vpc_endpoint_name   = "frontend-workspace-ep-${random_string.databricks_suffix.result}"
-#   gcp_vpc_endpoint_info {
-#     project_id        = var.google_shared_vpc_project
-#     psc_endpoint_name = var.workspace_pe
-#     endpoint_region   = var.google_region
-# }
-# }
-
-# Provision databricks private access configuration > applies to vpc endpoint
-# resource "databricks_mws_private_access_settings" "pas" {
-#   provider = databricks.accounts
-#   account_id                   = var.databricks_account_id
-#   private_access_settings_name = "pas-${random_string.databricks_suffix.result}"
-#   region                       = var.google_region
-  
-#   /*
-  
-#   Please carefully read thru this doc before proceeding
-#   https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/private-service-connect.html#step-6-create-a-databricks-private-access-settings-object
-
-#   Public access enabled: Specify if public access is allowed. 
-#   Choose this value carefully because it cannot be changed after the private access settings object is created.
-
-#   If public access is enabled, users can configure the IP access lists to allow/block public access (from the public internet) 
-#   to the workspaces that use this private access settings object.
-
-#   If public access is disabled, no public traffic can access the workspaces that use this private access settings object. 
-#   The IP access lists do not affect public access.
-
-#   */
-
-#   public_access_enabled        = false        #false
-  
-#   /*
-#   Private access level: A specification to restrict access to only authorized Private Service Connect connections. 
-#   It can be one of the below values:
-
-#   Account: Any VPC endpoints registered with your Databricks account can access this workspace. This is the default value.
-#   Endpoint: Only the VPC endpoints that you specify explicitly can access the workspace. 
-#   If you choose this value, you can choose from among your registered VPC endpoints.
-#   */
-#   private_access_level         = "ACCOUNT"
-# }
-
-# Provision databricks network configuration
-# resource "databricks_mws_networks" "databricks_network" {
-#   provider     = databricks.accounts
-#   account_id   = var.databricks_account_id
-#   # name needs to be of length 3-30 incuding [a-z,A-Z,-_]
-#   # network_name = "${var.google_shared_vpc_project}-nw-${random_string.databricks_suffix.result}"
-#   network_name = var.network_config_name
-#   gcp_network_info {
-#     network_project_id    = var.google_shared_vpc_project
-#     vpc_id                = var.google_vpc_id
-#     subnet_id             = var.node_subnet_name
-#     pod_ip_range_name     = var.pod_subnet_name
-#     service_ip_range_name = var.service_subnet_name
-#     subnet_region         = var.google_region
-#   }
-#   # vpc_endpoints {
-#   #   dataplane_relay = [databricks_mws_vpc_endpoint.relay_vpce.vpc_endpoint_id]
-#   #   rest_api        = [databricks_mws_vpc_endpoint.workspace_vpce.vpc_endpoint_id]
-#   # }
-# }
-# Provision databricks workspace in a customer managed vpc
-# https://docs.gcp.databricks.com/administration-guide/account-settings-gcp/workspaces.html#create-a-workspace-using-the-account-console
 
 resource "databricks_mws_workspaces" "databricks_workspace" {
   depends_on = [ module.dbx-admin-grant.is_granted_admin ]
@@ -236,11 +153,22 @@ output "gke_service_account" {
 output "workspace_url" {
   value = databricks_mws_workspaces.databricks_workspace.workspace_url
 }
+output "workspace_id" {
+  value = databricks_mws_workspaces.databricks_workspace.workspace_id
+}
 
-# output "ingress_firewall_enabled" {
-#   value = databricks_workspace_conf.this.custom_config["enableIpAccessLists"]
-# }
+output "workspace_name" {
+  value = databricks_mws_workspaces.databricks_workspace.workspace_name
+}
 
-# output "ingress_firewall_ip_allowed" {
-#   value = databricks_ip_access_list.this.ip_addresses
-# }
+output "service_account" {
+  value = module.sa-provisionning.service_account
+}
+
+output "ingress_firewall_enabled" {
+  value = databricks_workspace_conf.this.custom_config["enableIpAccessLists"]
+}
+
+output "ingress_firewall_ip_allowed" {
+  value = databricks_ip_access_list.this.ip_addresses
+}
