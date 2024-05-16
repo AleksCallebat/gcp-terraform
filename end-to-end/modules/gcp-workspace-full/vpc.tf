@@ -37,6 +37,8 @@ resource "google_compute_router" "router" {
 }
 
 resource "google_compute_router_nat" "nat" {
+  provider = google
+  project = var.google_project_name
   name                               = var.nat_name
   router                             = google_compute_router.router.name
   region                             = google_compute_router.router.region
@@ -60,8 +62,8 @@ resource "databricks_mws_networks" "databricks_network" {
     pod_ip_range_name     = var.pod_subnet_name
     service_ip_range_name = var.service_subnet_name
   }
-  #  vpc_endpoints {
-  #   dataplane_relay = [databricks_mws_vpc_endpoint.relay_vpce.vpc_endpoint_id]
-  #   rest_api        = [databricks_mws_vpc_endpoint.workspace_vpce.vpc_endpoint_id]
-  # }
+   vpc_endpoints {
+    dataplane_relay = [databricks_mws_vpc_endpoint.relay_vpce.vpc_endpoint_id]
+    rest_api        = [databricks_mws_vpc_endpoint.workspace_vpce.vpc_endpoint_id]
+  }
 }

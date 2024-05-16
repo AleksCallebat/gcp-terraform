@@ -1,45 +1,46 @@
-google_project = "fe-dev-sandbox"
-google_region = "europe-west2"
+google_project = "dbrickspoc"
+google_region = "europe-west1"
 
-priviledged_sa_name = "alek-tf-priviledged"
+priviledged_sa_name = "priviledged-sa-2"
 # priviledge_sa_email = "alek-tf-priviledged@fe-dev-sandbox.iam.gserviceaccount.com"
 
 
 role_name = "dbx_deployer_priviledged"
-delegate_from = ["serviceAccount:alek-deployer@fe-dev-sandbox.iam.gserviceaccount.com"]
+delegate_from = ["serviceAccount:dbx-workspacecreator@dbrickspoc.iam.gserviceaccount.com"] #current identity (set in $GOOGLE_APPLICATION_CREDENTIALS)
 
-databricks_account_id = "f187f55a-9d3d-463b-aa1a-d55818b704c9"
-old_admin_account =  "alek-tf@fe-dev-sandbox.iam.gserviceaccount.com"
+databricks_account_id = "4fcc3cd4-3c85-4e92-bac3-442bd477c573" #prod
+old_admin_account =  "databricks-workspace-priv-sa@dbrickspoc.iam.gserviceaccount.com"
 
 #NETWORKING
-google_vpc_id = "alek-tf-vpc"
+google_vpc_id = "db-mq-ln-psc-vpc"
 gke_master_ip_range = "10.32.0.0/28"
 pod_subnet_name = "pods"
-node_subnet_name = "alek-tf-subnet"
-subnet_ip_cidr_range = "10.5.0.0/20"
-pod_ip_cidr_range = "10.6.0.0/20"
-svc_ip_cidr_range = "10.7.0.0/20"
-service_subnet_name = "svc"
+node_subnet_name = "node-subnet"
+subnet_ip_cidr_range = "10.0.0.0/20"
+pod_ip_cidr_range = "10.1.0.0/20"
+svc_ip_cidr_range = "10.2.0.0/20"
+service_subnet_name = "service-subnet"
 router_name = "router"
 nat_name = "nat"
-cmek_resource_id = "projects/fe-dev-sandbox/locations/europe-west2/keyRings/alek-keyring/cryptoKeys/alek-key"
-network_config_name = "alek-tf-net-config" #DATABRICKS SIDE CONFIGURATION OBJECT NAME
+cmek_resource_id = "projects/dbrickspoc/locations/europe-west1/keyRings/dbx-mq-ln-keyring/cryptoKeys/dbx-mq-ln-key"
+network_config_name = "dbx-network-config" #DATABRICKS SIDE CONFIGURATION OBJECT NAME
 ##PSC VARIABLES CONFIGURATION
-relay_pe_name = "alek-tf-dbx-relay-pe"
-relay_service_attachment = "projects/prod-gcp-europe-west2/regions/europe-west2/serviceAttachments/ngrok-psc-endpoint"
-workspace_service_attachment = "projects/prod-gcp-europe-west2/regions/europe-west2/serviceAttachments/plproxy-psc-endpoint-all-ports"
-relay_pe_ip_name = "alek-tf-dbx-relay-pe-ip"
-google_pe_subnet_name = "alek-tf-dbx-pe-subnet"
-google_pe_subnet_range = "10.8.0.0/24"
-workspace_pe_name = "alek-tf-dbx-ws-pe"
-workspace_pe_ip_name = "dalek-tf-bx-pe-ip"
+relay_pe_name = "dbx-relay-pe"
+relay_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/ngrok-psc-endpoint"
+workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
+relay_pe_ip_name = "dbx-relay-pe-ip"
+google_pe_subnet_name = "dbx-pe-subnet"
+google_pe_subnet_range = "10.3.0.0/24"
+workspace_pe_name = "dbx-ws-pe"
+workspace_pe_ip_name = "dbx-pe-ip"
 
 #WORKSPACE MANAGEMENT
 databricks_account_console_url = "https://accounts.gcp.databricks.com"
-databricks_workspace_name = "alek-tf-ws"
-databricks_user_email = "aleksander.callebat+421@gmail.com"
+databricks_workspace_name = "db-mq-ln-psc-ws"
+databricks_user_email = "aleksander.callebat@gmail.com"
 
 #CONFIGURE UC
-uc_storage_name = "alek-tf-uc-storage"
-metastore_name = "alek-tf-metastore"
-metastore_exists = false
+uc_storage_name = "dbx-uc-storage"
+metastore_name = "metastore-eu-west1"
+metastore_exists = true
+workspace_users = ["aleksander.callebat+42@gmail.com"]

@@ -44,3 +44,4 @@ variable "databricks_user_email" {}
 variable "uc_storage_name" {}
 variable "metastore_name" {}
 variable "metastore_exists" {}
+variable "workspace_users" {}
