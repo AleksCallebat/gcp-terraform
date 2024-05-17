@@ -22,8 +22,8 @@ svc_ip_cidr_range = "10.7.0.0/20"
 service_subnet_name = "svc"
 router_name = "router"
 nat_name = "nat"
-cmek_resource_id = "projects/fe-dev-sandbox/locations/europe-west2/keyRings/alek-keyring/cryptoKeys/alek-key"
 network_config_name = "alek-tf-net-config" #DATABRICKS SIDE CONFIGURATION OBJECT NAME
+
 ##PSC VARIABLES CONFIGURATION
 relay_pe_name = "alek-tf-dbx-relay-pe"
 relay_service_attachment = "projects/prod-gcp-europe-west2/regions/europe-west2/serviceAttachments/ngrok-psc-endpoint"
@@ -34,12 +34,19 @@ google_pe_subnet_range = "10.8.0.0/24"
 workspace_pe_name = "alek-tf-dbx-ws-pe"
 workspace_pe_ip_name = "dalek-tf-bx-pe-ip"
 
+#CMEK MANAGEMENt
+cmek_resource_id = "projects/fe-dev-sandbox/locations/europe-west2/keyRings/alek-keyring/cryptoKeys/alek-key"
+use_existing_key = false
+keyring_name = "alek-tf-keyring-2"
+key_name = "alek-tf-key-2"
+
 #WORKSPACE MANAGEMENT
 databricks_account_console_url = "https://accounts.gcp.databricks.com"
 databricks_workspace_name = "alek-tf-ws"
 databricks_user_email = "aleksander.callebat+421@gmail.com"
 
 #CONFIGURE UC
-uc_storage_name = "alek-tf-uc-storage"
+uc_storage_name = "alek-tf-uc-storage-2"
 metastore_name = "alek-tf-metastore"
-metastore_exists = false
+metastore_exists = true
+workspace_users = ["aleksander.callebat+12@gmail.com","aleksander.callebat+23@gmail.com"]

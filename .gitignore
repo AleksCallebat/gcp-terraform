@@ -10,3 +10,5 @@ gcp-workspace-full/.terraform/
 *.hcl
 *.terraform.lock.hcl
 legacy/
+*/.DS_Store
+.DS_Store

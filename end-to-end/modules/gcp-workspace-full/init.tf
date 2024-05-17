@@ -47,7 +47,7 @@ provider "databricks" {
 }
 
 provider "databricks" {
-  alias                  = "workspace"
+  alias                  = "workspace2"
   host                   = databricks_mws_workspaces.databricks_workspace.workspace_url
   google_service_account = module.sa-provisionning.service_account
 }

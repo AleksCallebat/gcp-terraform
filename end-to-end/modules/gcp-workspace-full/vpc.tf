@@ -4,6 +4,8 @@ variable "subnet_ip_cidr_range" {}
 variable "router_name" {}
 variable "nat_name" {}
 
+
+
 resource "google_compute_network" "dbx_private_vpc" {
   depends_on = [ module.sa-provisionning ]
   project                 = var.google_project_name
@@ -37,6 +39,8 @@ resource "google_compute_router" "router" {
 }
 
 resource "google_compute_router_nat" "nat" {
+  provider = google
+  project = var.google_project_name
   name                               = var.nat_name
   router                             = google_compute_router.router.name
   region                             = google_compute_router.router.region
@@ -47,7 +51,7 @@ resource "google_compute_router_nat" "nat" {
 resource "databricks_mws_networks" "databricks_network" {
   provider   = databricks.accounts
   account_id = var.databricks_account_id
-  depends_on = [ module.dbx-admin-grant,module.sa-provisionning ]
+  depends_on = [ module.dbx-admin-grant,module.sa-provisionning,google_compute_network.dbx_private_vpc ]
 
 
   network_name = "${var.google_vpc_id}"

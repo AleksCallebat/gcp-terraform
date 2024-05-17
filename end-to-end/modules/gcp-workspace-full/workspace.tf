@@ -7,16 +7,12 @@ variable "node_subnet_name" {}
 variable "pod_subnet_name" {}
 variable "service_subnet_name" {}
 variable "gke_master_ip_range" {}
-variable "cmek_resource_id" {}
 variable "network_config_name" {}
-# variable "google_pe_subnet" {}
-# variable "workspace_pe" {}
-# variable "relay_pe" {}
-# variable "relay_pe_ip_name" {}
-# variable "workspace_pe_ip_name" {}
-# variable "relay_service_attachment" {}
-# variable "workspace_service_attachment" {}
-# variable "is_granted_admin" {}
+
+variable "cmek_resource_id" {}
+variable "use_existing_key" {}
+variable "keyring_name" {}
+variable "key_name" {}
 
 data "google_client_openid_userinfo" "me" {}
 data "google_client_config" "current" {}
@@ -31,8 +27,6 @@ https://docs.gcp.databricks.com/archive/compute/configure.html#google-service-ac
 
 
 data "google_service_account" "databricks" {
-    provider = google.deployment
-    depends_on = [ module.dbx-admin-grant.is_granted_admin, module.sa-provisionning]
     account_id   = "databricks" #need to use "databricks"
     # display_name = "Databricks SA for GKE nodes"
     project = var.google_project_name
@@ -40,33 +34,12 @@ data "google_service_account" "databricks" {
 
 # # assign role to the gke default SA
 resource "google_project_iam_binding" "databricks_gke_node_role" {
-  provider = google.deployment
-  project = var.google_project_name
+  project = "${var.google_project_name}"
   role = "roles/container.nodeServiceAccount"
   members = [
     "serviceAccount:${data.google_service_account.databricks.email}"
   ]
 }
-
-resource "databricks_mws_customer_managed_keys" "this" {
-        provider = databricks.accounts
-				account_id   = var.databricks_account_id
-				gcp_key_info {
-					kms_key_id   = var.cmek_resource_id
-				}
-				use_cases = ["STORAGE","MANAGED","MANAGED_SERVICES"]
-        lifecycle {
-              ignore_changes = all
-        }
-			}
-
-# Random suffix for databricks network and workspace
-resource "random_string" "databricks_suffix" {
-  special = false
-  upper   = false
-  length  = 2
-}
-
 
 
 resource "databricks_mws_workspaces" "databricks_workspace" {
@@ -81,7 +54,7 @@ resource "databricks_mws_workspaces" "databricks_workspace" {
       project_id = var.google_project_name
     }
   }
-  # private_access_settings_id = databricks_mws_private_access_settings.pas.private_access_settings_id
+  private_access_settings_id = databricks_mws_private_access_settings.pas.private_access_settings_id
   network_id = databricks_mws_networks.databricks_network.network_id
   gke_config {
     connectivity_type = "PRIVATE_NODE_PUBLIC_MASTER"
@@ -93,28 +66,28 @@ resource "databricks_mws_workspaces" "databricks_workspace" {
 
 
 data "databricks_group" "admins" {
+  provider     = databricks.workspace2
   depends_on   = [ databricks_mws_workspaces.databricks_workspace ]
-  provider     = databricks.workspace
   display_name = "admins"
 }
 
 resource "databricks_user" "me" {
   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
-  provider   = databricks.workspace
+  provider   = databricks.workspace2
   user_name  = var.databricks_user_email //data.google_client_openid_userinfo.me.email
 }
 
 
 resource "databricks_group_member" "allow_me_to_login" {
   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
-  provider   = databricks.workspace
+  provider   = databricks.workspace2
   group_id   = data.databricks_group.admins.id
   member_id  = databricks_user.me.id
 }
 
 resource "databricks_workspace_conf" "this" {
   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
-  provider   = databricks.workspace
+  provider   = databricks.workspace2
   custom_config = {
     "enableIpAccessLists" = true
   }
@@ -122,7 +95,7 @@ resource "databricks_workspace_conf" "this" {
 
 resource "databricks_ip_access_list" "this" {
   depends_on = [ databricks_workspace_conf.this ]
-  provider   = databricks.workspace
+  provider   = databricks.workspace2
   label = "allow corp vpn1"
   list_type = "ALLOW"
   ip_addresses = [
@@ -142,7 +115,8 @@ resource "databricks_ip_access_list" "this" {
     "44.230.222.179/32",
     "137.83.235.84",
     "176.188.12.186",
-    "130.41.123.37"
+    "130.41.123.37",
+    "0.0.0.0/0"
     ]
 
 }

@@ -12,6 +12,8 @@ terraform {
 }
 
 provider "google" {
+  alias = "deployed"
+  impersonate_service_account = module.gcp-workspace-full.service_account
   project = var.google_project
   region  = var.google_region
 

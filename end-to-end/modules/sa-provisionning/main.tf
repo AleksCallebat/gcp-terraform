@@ -46,7 +46,9 @@ resource "google_project_iam_custom_role" "workspace_creator" {
     "compute.routers.get",
     # NOW THESE SHOULD NOT BE NEEDED
     "iam.serviceAccounts.get",
-    "compute.networks.create"
+    "compute.networks.create",
+    "storage.buckets.create"
+    
     
   ]
 }

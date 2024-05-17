@@ -10,4 +10,6 @@ provider "google" {
   alias = "google-init"
   project = var.google_project
   region  = var.google_region
+
+
 }

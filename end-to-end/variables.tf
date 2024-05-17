@@ -15,12 +15,16 @@ variable "databricks_account_id" {}
 variable "old_admin_account" {}
 # variable "priviledge_sa_email" {}
 
+variable "cmek_resource_id" {}
+variable "use_existing_key" {}
+variable "keyring_name" {}
+variable "key_name" {}
+
 variable "google_vpc_id" {}
 variable "gke_master_ip_range" {}
 variable "pod_subnet_name" {}
 variable "node_subnet_name" {}
 variable "service_subnet_name" {}
-variable "cmek_resource_id" {}
 variable "network_config_name" {}
 variable "subnet_ip_cidr_range" {}
 variable "pod_ip_cidr_range" {}
@@ -44,3 +48,5 @@ variable "databricks_user_email" {}
 variable "uc_storage_name" {}
 variable "metastore_name" {}
 variable "metastore_exists" {}
+
+variable "workspace_users" {}
