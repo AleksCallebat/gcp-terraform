@@ -4,5 +4,5 @@ output "custom_role_url" {
 }
 output "service_account" {
   value       = google_service_account.sa2.email
-  description = "Priviledged Service Account for Databricks Workspace Deployment"
+  description = "Service Account for Databricks Workspace Deployment"
 }

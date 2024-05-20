@@ -1,13 +1,12 @@
 variable "databricks_account_id" {}
 variable "databricks_account_console_url" {}
 variable "databricks_workspace_name" {}
-variable "databricks_user_email" {}
+variable "workspace_admin_email" {}
 variable "google_vpc_id" {}
 variable "node_subnet_name" {}
 variable "pod_subnet_name" {}
 variable "service_subnet_name" {}
 variable "gke_master_ip_range" {}
-variable "network_config_name" {}
 
 variable "cmek_resource_id" {}
 variable "use_existing_key" {}
@@ -74,7 +73,7 @@ data "databricks_group" "admins" {
 resource "databricks_user" "me" {
   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
   provider   = databricks.workspace2
-  user_name  = var.databricks_user_email //data.google_client_openid_userinfo.me.email
+  user_name  = var.workspace_admin_email //data.google_client_openid_userinfo.me.email
 }
 
 

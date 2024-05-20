@@ -1,13 +1,15 @@
 # # PSC endpoints creation
 # # Make sure that the endpoints are created before you create the workspace
-variable "relay_pe_name" {}
 variable "relay_service_attachment" {}
-variable "relay_pe_ip_name" {}
+variable "workspace_service_attachment" {}
+
+variable "workspace_pe_name" {}
+variable "workspace_pe_ip_name" {}
+variable "frontend_pe_ip_name" {}
 variable "google_pe_subnet_name" {}
 variable "google_pe_subnet_range" {}
-variable "workspace_pe_name" {}
-variable "workspace_service_attachment" {}
-variable "workspace_pe_ip_name" {}
+variable "backend_pe_name" {}
+variable "frontend_pe_name" {}
 
 
 # Random suffix for databricks network and workspace
@@ -29,7 +31,7 @@ resource "google_compute_subnetwork" "subnet-psc-endpoint" {
 
 
 resource "google_compute_address" "backend_pe_ip_address" {
-  name         = "${var.relay_pe_ip_name}-${random_string.databricks_suffix.result}"
+  name         = "${var.workspace_pe_ip_name}-${random_string.databricks_suffix.result}"
   provider     = google.deployment
   project      = var.google_shared_vpc_project
   region       = var.google_region
@@ -38,7 +40,7 @@ resource "google_compute_address" "backend_pe_ip_address" {
 }
 
 resource "google_compute_address" "frontend_pe_ip_address" {
-  name         = "${var.workspace_pe_ip_name}-${random_string.databricks_suffix.result}"
+  name         = "${var.frontend_pe_ip_name}-${random_string.databricks_suffix.result}"
   provider     = google.deployment
   project      = var.google_shared_vpc_project
   region       = var.google_region
@@ -53,7 +55,7 @@ resource "google_compute_forwarding_rule" "backend_psc_ep" {
   ]
   region      = var.google_region
   project     = var.google_shared_vpc_project
-  name        = var.relay_pe_name
+  name        = var.backend_pe_name
   network     = var.google_vpc_id
   ip_address  = google_compute_address.backend_pe_ip_address.id
   target      = var.relay_service_attachment
@@ -66,7 +68,7 @@ resource "google_compute_forwarding_rule" "frontend_psc_ep" {
     google_compute_address.frontend_pe_ip_address
   ]
   region      = var.google_region
-  name        = var.workspace_pe_name
+  name        = var.frontend_pe_name
   project     = var.google_shared_vpc_project
   network     = var.google_vpc_id
   ip_address  = google_compute_address.frontend_pe_ip_address.id
@@ -75,14 +77,14 @@ resource "google_compute_forwarding_rule" "frontend_psc_ep" {
 }
 
 # Provision databricks network configuration > backend vpc endpoint
-# resource "databricks_mws_vpc_endpoint" "relay_vpce" {
+# resource "databricks_mws_vpc_endpoint" "backend_vpce" {
 #   depends_on = [ google_compute_forwarding_rule.backend_psc_ep ]
 #   provider = databricks.accounts
 #   account_id          = var.databricks_account_id
-#   vpc_endpoint_name   = "backend-relay-ep-${random_string.databricks_suffix.result}"
+#   vpc_endpoint_name   = "backend-backend-ep-${random_string.databricks_suffix.result}"
 #   gcp_vpc_endpoint_info {
 #     project_id        = var.google_shared_vpc_project
-#     psc_endpoint_name = var.relay_pe_name
+#     psc_endpoint_name = var.workspace_pe_name
 #     endpoint_region   = var.google_region
 # }
 # }
