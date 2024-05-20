@@ -1,6 +1,6 @@
 resource "google_service_account" "sa2" {
   provider = google.google-init
-  account_id   = var.priviledged_sa_name
+  account_id   = var.workspace_creator_sa_name
   display_name = "Service Account for Databricks Provisioning"
 }
 
@@ -23,7 +23,7 @@ resource "google_service_account_iam_policy" "impersonatable" {
 
 resource "google_project_iam_custom_role" "workspace_creator" {
   provider = google.google-init
-  role_id = "${var.role_name}"
+  role_id = "${var.workspace_creator_role_name}"
   title   = "Databricks Workspace Creator "
   project = var.google_project
   permissions = [

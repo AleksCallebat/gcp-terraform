@@ -2,9 +2,8 @@
 variable "google_project" {}
 variable "google_region" {}
 
-variable "priviledged_sa_name" {}
-
-variable "role_name"{}
+variable "workspace_creator_sa_name" {}
+variable "workspace_creator_role_name"{}
 
 variable "delegate_from" {
   description = "Allow either user:user.name@example.com, group:deployers@example.com or serviceAccount:sa1@project.iam.gserviceaccount.com to impersonate created service account"
@@ -12,7 +11,7 @@ variable "delegate_from" {
   # This is most likely going to be the email of a service Account used to run this code.
 }
 variable "databricks_account_id" {}
-variable "old_admin_account" {}
+variable "existing_dbx_admin_account" {}
 # variable "priviledge_sa_email" {}
 
 variable "google_vpc_id" {}
@@ -28,13 +27,15 @@ variable "nat_name" {}
 variable "router_name" {}
 variable "svc_ip_cidr_range" {}
 
-variable "relay_pe_name" {}
 variable "relay_service_attachment" {}
-variable "relay_pe_ip_name" {}
-variable "google_pe_subnet_name" {}
+variable "backend_pe_ip_name" {}
+variable "google_pe_subnet_name" {} 
 variable "google_pe_subnet_range" {}
 variable "workspace_pe_name" {}
 variable "workspace_service_attachment" {}
+variable "frontend_pe_ip_name" {}
+variable "backend_pe_name" {}
+variable "frontend_pe_name" {}
 variable "workspace_pe_ip_name" {}
 
 variable "databricks_account_console_url" {}

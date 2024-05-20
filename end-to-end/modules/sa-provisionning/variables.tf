@@ -2,9 +2,9 @@
 variable "google_project" {}
 variable "google_region" {}
 
-variable "priviledged_sa_name" {}
+variable "workspace_creator_sa_name" {}
 
-variable "role_name"{}
+variable "workspace_creator_role_name"{}
 
 variable "delegate_from" {
   description = "Allow either user:user.name@example.com, group:deployers@example.com or serviceAccount:sa1@project.iam.gserviceaccount.com to impersonate created service account"

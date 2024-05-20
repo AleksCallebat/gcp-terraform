@@ -1,6 +1,6 @@
 resource "databricks_user" "sa" {
   provider = databricks.databricks_old
-  display_name         = "SA for Account Provisionning"
+  display_name         = "SA for Workspace Provisionning"
   user_name = var.new_admin_account
 }
 resource "databricks_user_role" "my_user_account_admin" {
