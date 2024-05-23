@@ -42,7 +42,7 @@ resource "google_project_iam_binding" "databricks_gke_node_role" {
 
 
 resource "databricks_mws_workspaces" "databricks_workspace" {
-  depends_on = [ module.dbx-admin-grant.is_granted_admin ]
+  depends_on = [ module.dbx-admin-grant.is_granted_admin,databricks_mws_networks.databricks_network ]
 
   provider       = databricks.accounts
   account_id     = var.databricks_account_id
@@ -53,7 +53,7 @@ resource "databricks_mws_workspaces" "databricks_workspace" {
       project_id = var.google_project_name
     }
   }
-  private_access_settings_id = databricks_mws_private_access_settings.pas.private_access_settings_id
+  # private_access_settings_id = databricks_mws_private_access_settings.pas.private_access_settings_id
   network_id = databricks_mws_networks.databricks_network.network_id
   gke_config {
     connectivity_type = "PRIVATE_NODE_PUBLIC_MASTER"

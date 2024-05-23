@@ -26,8 +26,8 @@ module "gcp-workspace-full" {
 
   cmek_resource_id = var.cmek_resource_id
   use_existing_key = var.use_existing_key
-  keyring_name = var.keyring_name
-  key_name = var.key_name
+  keyring_name = "${var.keyring_name}-${local.random_string}"
+  key_name = "${var.key_name}-${local.random_string}"
 
   # router_name = "${var.router_name}-${local.random_string}"
   # nat_name = "${var.nat_name}-${local.random_string}"

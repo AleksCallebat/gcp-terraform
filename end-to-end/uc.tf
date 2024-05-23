@@ -34,6 +34,7 @@ resource "databricks_metastore" "new_metastore" {
 resource "databricks_metastore_data_access" "first" {
   count = var.use_existing_metastore ? 0 : 1
   provider     = databricks.accounts
+  depends_on = [ databricks_metastore.new_metastore ]
   metastore_id = var.use_existing_metastore?data.databricks_metastore.existing_metastore[0].id:databricks_metastore.new_metastore[0].id
   databricks_gcp_service_account {}
   name       = "storage-credentials-uc" // storage credentials created for the default storage account

@@ -1,24 +1,24 @@
-google_project = "fe-dev-sandbox"
+google_project = "dbx-<env>-<region>-<lob>"
 google_region = "europe-west1"
-databricks_account_id = "f187f55a-9d3d-463b-aa1a-d55818b704c9" #prod
+databricks_account_id = "4fcc3cd4-3c85-4e92-bac3-442bd477c573" #prod
 
 # NAME OF THE SA THAT WILL CREATE THE WORKSPACE (SA will be provisionend and granted custom role)
-workspace_creator_sa_name = "alek-tf-creator-sa"
-workspace_creator_role_name = "dbx_alek_tf_workspace_creator_role"
+workspace_creator_sa_name = "dbx-<env>-<region>-workspace-creator-sa"
+workspace_creator_role_name = "dbx_<env>_<region>_workspace_creator_role"
 
 # Current identity of the deployment process (to be set in the env variable $GOOGLE_APPLICATION_CREDENTIALS)
 # This is the Google Identity that will exectue the current terraform. It creates and then impersonates the workspace creator SA
 # Allow either user:user.name@example.com, group:deployers@example.com or serviceAccount:deployer-sa@project.iam.gserviceaccount.com to impersonate created service account
-delegate_from = ["serviceAccount:alek-deployer@fe-dev-sandbox.iam.gserviceaccount.com"] 
+delegate_from = ["serviceAccount:<DEPLOYER_SA_EMAIL>"] 
 
 # DATABRICKS ADMIN EMAIL. This is the admin account from which we derive the Databricks privileges for the Workspace Creator SA.
 # Workspace Creator SA will become a new Databricks Admin thanks to this grant 
-dbx_existing_admin_account =  "alek-tf-priviledged-9xpb10@fe-dev-sandbox.iam.gserviceaccount.com"
+dbx_existing_admin_account =  "databricks-workspace-priv-sa@dbrickspoc.iam.gserviceaccount.com"
 
 ## NETWORKING
 # NETWORK USED BY THE DATABRICKS WORKSPACE (It is provisionned by the current terraform template)
 # See https://docs.gcp.databricks.com/en/administration-guide/cloud-configurations/gcp/network-sizing.html to adjust the subnet range
-google_vpc_name = "alek-tf-psc-vpc"
+google_vpc_name = "dbx-<env>-<region>-psc-vpc"
 gke_master_ip_range = "10.32.0.0/28"
 pod_subnet_name = "pods"
 node_subnet_name = "node-subnet"
@@ -33,8 +33,8 @@ svc_ip_cidr_range = "10.2.0.0/20"
 # CMEK MANAGEMENT
 use_existing_key = false # IF use_existing_key=false, will create a keyring with name keyring_name and a key named key_name
 cmek_resource_id = "" # If use_existing_key=true, provide the id to the CMEK resource ID (shape projects/<project-name>/regions/<region-id>/,....)
-keyring_name = "dbx-alek-tf-keyring"
-key_name = "dbx-alek-tf-key"
+keyring_name = "dbx-<env>-<region>-<lob>-keyring"
+key_name = "dbx-<env>-<region>-<lob>-key"
 
 # PSC VARIABLES CONFIGURATION FOR PRIVATE ENDPOINT
 workspace_pe_ip_name = "dbx-backend-pe-ip"
@@ -55,13 +55,13 @@ workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-we
 
 # WORKSPACE MANAGEMENT CONFIGURATION
 databricks_account_console_url = "https://accounts.gcp.databricks.com"
-databricks_workspace_name = "dbx-alek-tf-ws"
-workspace_admin_email = "aleksander.callebat@gmail.com"
+databricks_workspace_name = "dbx-<env>-<region>-<lob>-ws"
+workspace_admin_email = "<Workspace_Admin_User_EMAIL>"
 
 # UNITY CATALOG CONFIGURATION
-uc_storage_name = "dbx-alek-tf-uc" # Not Read if metastore_exists=true
-metastore_name = "dbx-alek-tf-metastore"
+uc_storage_name = "dbx-<env>-<region>-<lob>-uc" # Not Read if metastore_exists=true
+metastore_name = "dbx-<env>-<region>-<lob>-metastore"
 use_existing_metastore = false 
-workspace_users = ["aleksander.callebat+33@gmail.com","aleksander.callebat+42@gmail.com"]
+workspace_users = ["user1_email","user2_email"]
 
 
