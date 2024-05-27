@@ -1,0 +1,702 @@
+{
+  "version": 4,
+  "terraform_version": "1.7.5",
+  "serial": 69,
+  "lineage": "db477b95-6cfb-3eb4-2a67-85ba8cfde1c2",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "data",
+      "type": "databricks_metastore",
+      "name": "existing_metastore",
+      "provider": "provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": []
+    },
+    {
+      "mode": "managed",
+      "type": "databricks_group",
+      "name": "workspace_users",
+      "provider": "provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acl_principal_id": "groups/workspace users",
+            "allow_cluster_create": true,
+            "allow_instance_pool_create": true,
+            "databricks_sql_access": false,
+            "display_name": "workspace users",
+            "external_id": "",
+            "force": null,
+            "id": "554596310885473",
+            "url": "https://accounts.gcp.databricks.com/users/groups/554596310885473/information",
+            "workspace_access": false
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "databricks_group_member",
+      "name": "engineer-admins",
+      "provider": "provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "index_key": "aleksander.callebat+35@gmail.com",
+          "schema_version": 0,
+          "attributes": {
+            "group_id": "554596310885473",
+            "id": "554596310885473|4338543538198047",
+            "member_id": "4338543538198047"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "databricks_group.workspace_users",
+            "databricks_user.workspace_users",
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        },
+        {
+          "index_key": "aleksander.callebat+49@gmail.com",
+          "schema_version": 0,
+          "attributes": {
+            "group_id": "554596310885473",
+            "id": "554596310885473|5411440574039768",
+            "member_id": "5411440574039768"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "databricks_group.workspace_users",
+            "databricks_user.workspace_users",
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "databricks_metastore",
+      "name": "new_metastore",
+      "provider": "provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 0,
+          "attributes": {
+            "cloud": "gcp",
+            "created_at": 1716563280826,
+            "created_by": "alek-tf-eu1-creator-sa@fe-dev-sandbox.iam.gserviceaccount.com",
+            "default_data_access_config_id": null,
+            "delta_sharing_organization_name": null,
+            "delta_sharing_recipient_token_lifetime_in_seconds": null,
+            "delta_sharing_scope": "INTERNAL",
+            "force_destroy": true,
+            "global_metastore_id": "gcp:europe-west1:ebc9a9c2-68b7-4b2a-a53f-67ecacd169ff",
+            "id": "ebc9a9c2-68b7-4b2a-a53f-67ecacd169ff",
+            "metastore_id": "ebc9a9c2-68b7-4b2a-a53f-67ecacd169ff",
+            "name": "dbx-alek-tf-metastore",
+            "owner": "alek-tf-eu1-creator-sa@fe-dev-sandbox.iam.gserviceaccount.com",
+            "region": "europe-west1",
+            "storage_root": "gs://dbx-alek-tf-uc-42/ebc9a9c2-68b7-4b2a-a53f-67ecacd169ff",
+            "storage_root_credential_id": null,
+            "updated_at": 1716563286274,
+            "updated_by": "alek-tf-eu1-creator-sa@fe-dev-sandbox.iam.gserviceaccount.com"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "google_storage_bucket.unity_metastore",
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "databricks_metastore_assignment",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "default_catalog_name": "dbx-alek-tf-ws-yj-main",
+            "id": "546452019228594|ebc9a9c2-68b7-4b2a-a53f-67ecacd169ff",
+            "metastore_id": "ebc9a9c2-68b7-4b2a-a53f-67ecacd169ff",
+            "workspace_id": 546452019228594
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.databricks_metastore.existing_metastore",
+            "databricks_metastore.new_metastore",
+            "google_storage_bucket.unity_metastore",
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "databricks_metastore_data_access",
+      "name": "first",
+      "provider": "provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "aws_iam_role": [],
+            "azure_managed_identity": [],
+            "azure_service_principal": [],
+            "comment": null,
+            "databricks_gcp_service_account": [
+              {
+                "credential_id": "",
+                "email": "db-uc-storage-067qm98f48-phti2@uc-euwest1.iam.gserviceaccount.com"
+              }
+            ],
+            "force_destroy": null,
+            "force_update": null,
+            "gcp_service_account_key": [],
+            "id": "ebc9a9c2-68b7-4b2a-a53f-67ecacd169ff|storage-credentials-uc",
+            "is_default": true,
+            "metastore_id": "ebc9a9c2-68b7-4b2a-a53f-67ecacd169ff",
+            "name": "storage-credentials-uc",
+            "owner": "alek-tf-eu1-creator-sa@fe-dev-sandbox.iam.gserviceaccount.com",
+            "read_only": false,
+            "skip_validation": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "data.databricks_metastore.existing_metastore",
+            "databricks_metastore.new_metastore",
+            "google_storage_bucket.unity_metastore",
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "databricks_user",
+      "name": "workspace_users",
+      "provider": "provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "index_key": "aleksander.callebat+35@gmail.com",
+          "schema_version": 0,
+          "attributes": {
+            "acl_principal_id": "users/aleksander.callebat+35@gmail.com",
+            "active": true,
+            "allow_cluster_create": false,
+            "allow_instance_pool_create": false,
+            "databricks_sql_access": false,
+            "disable_as_user_deletion": null,
+            "display_name": "aleksander.callebat+35@gmail.com",
+            "external_id": "",
+            "force": null,
+            "force_delete_home_dir": null,
+            "force_delete_repos": null,
+            "home": "/Users/aleksander.callebat+35@gmail.com",
+            "id": "4338543538198047",
+            "repos": "/Repos/aleksander.callebat+35@gmail.com",
+            "user_name": "aleksander.callebat+35@gmail.com",
+            "workspace_access": false
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        },
+        {
+          "index_key": "aleksander.callebat+49@gmail.com",
+          "schema_version": 0,
+          "attributes": {
+            "acl_principal_id": "users/aleksander.callebat+49@gmail.com",
+            "active": true,
+            "allow_cluster_create": false,
+            "allow_instance_pool_create": false,
+            "databricks_sql_access": false,
+            "disable_as_user_deletion": null,
+            "display_name": "aleksander.callebat+49@gmail.com",
+            "external_id": "",
+            "force": null,
+            "force_delete_home_dir": null,
+            "force_delete_repos": null,
+            "home": "/Users/aleksander.callebat+49@gmail.com",
+            "id": "5411440574039768",
+            "repos": "/Repos/aleksander.callebat+49@gmail.com",
+            "user_name": "aleksander.callebat+49@gmail.com",
+            "workspace_access": false
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "google_storage_bucket",
+      "name": "unity_metastore",
+      "provider": "provider[\"registry.terraform.io/hashicorp/google\"].deployed",
+      "instances": [
+        {
+          "index_key": 0,
+          "schema_version": 1,
+          "attributes": {
+            "autoclass": [],
+            "cors": [],
+            "custom_placement_config": [],
+            "default_event_based_hold": false,
+            "effective_labels": {
+              "owner": "alek-tf-eu1-creator-sa"
+            },
+            "enable_object_retention": false,
+            "encryption": [],
+            "force_destroy": true,
+            "id": "dbx-alek-tf-uc-42",
+            "labels": {},
+            "lifecycle_rule": [],
+            "location": "EUROPE-WEST1",
+            "logging": [],
+            "name": "dbx-alek-tf-uc-42",
+            "project": "fe-dev-sandbox",
+            "project_number": 697856052963,
+            "public_access_prevention": "inherited",
+            "requester_pays": false,
+            "retention_policy": [],
+            "rpo": null,
+            "self_link": "https://www.googleapis.com/storage/v1/b/dbx-alek-tf-uc-42",
+            "soft_delete_policy": [
+              {
+                "effective_time": "2024-05-24T15:06:32.040Z",
+                "retention_duration_seconds": 604800
+              }
+            ],
+            "storage_class": "STANDARD",
+            "terraform_labels": {},
+            "timeouts": null,
+            "uniform_bucket_level_access": false,
+            "url": "gs://dbx-alek-tf-uc-42",
+            "versioning": [],
+            "website": []
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsInJlYWQiOjI0MDAwMDAwMDAwMCwidXBkYXRlIjoyNDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjEifQ==",
+          "dependencies": [
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_group_member.allow_me_to_login",
+            "module.gcp-workspace-full.databricks_ip_access_list.this",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_private_access_settings.pas",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "data",
+      "type": "databricks_group",
+      "name": "admins",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].workspace",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acl_principal_id": "groups/admins",
+            "allow_cluster_create": true,
+            "allow_instance_pool_create": true,
+            "child_groups": [],
+            "databricks_sql_access": true,
+            "display_name": "admins",
+            "external_id": null,
+            "groups": [],
+            "id": "391529292496720",
+            "instance_profiles": [],
+            "members": [
+              "1091851636265291",
+              "6374773917906331"
+            ],
+            "recursive": true,
+            "service_principals": [],
+            "users": [
+              "1091851636265291",
+              "6374773917906331"
+            ],
+            "workspace_access": true
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "managed",
+      "type": "databricks_group_member",
+      "name": "allow_me_to_login",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].workspace",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "group_id": "391529292496720",
+            "id": "391529292496720|6374773917906331",
+            "member_id": "6374773917906331"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.gcp-workspace-full.data.databricks_group.admins",
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_user.me"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "managed",
+      "type": "databricks_ip_access_list",
+      "name": "this",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].workspace",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "enabled": true,
+            "id": "172abe8a-e33a-46bf-be6c-2fccdc19b122",
+            "ip_addresses": [
+              "69.174.135.244",
+              "165.225.0.0/17",
+              "185.46.212.0/22",
+              "104.129.192.0/20",
+              "165.225.192.0/18",
+              "147.161.128.0/17",
+              "136.226.0.0/16",
+              "137.83.128.0/18",
+              "167.103.0.0/16",
+              "34.236.11.250/32",
+              "44.228.166.17/32",
+              "18.158.110.150/32",
+              "18.193.11.166/32",
+              "44.230.222.179/32",
+              "137.83.235.84",
+              "176.188.12.186",
+              "130.41.123.37",
+              "0.0.0.0/0"
+            ],
+            "label": "allow corp vpn1",
+            "list_type": "ALLOW"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace",
+            "module.gcp-workspace-full.databricks_workspace_conf.this"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "managed",
+      "type": "databricks_mws_customer_managed_keys",
+      "name": "this",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "account_id": "f187f55a-9d3d-463b-aa1a-d55818b704c9",
+            "aws_key_info": [],
+            "creation_time": 1716562669753,
+            "customer_managed_key_id": "184b5dd1-bb2d-4d88-b54a-9a8bc93a557b",
+            "gcp_key_info": [
+              {
+                "kms_key_id": "projects/fe-dev-sandbox/locations/europe-west1/keyRings/dbx-alek-eu3-tf-keyring/cryptoKeys/dbx-alek-eu3-tf-key"
+              }
+            ],
+            "id": "f187f55a-9d3d-463b-aa1a-d55818b704c9/184b5dd1-bb2d-4d88-b54a-9a8bc93a557b",
+            "use_cases": [
+              "STORAGE",
+              "MANAGED_SERVICES"
+            ]
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "managed",
+      "type": "databricks_mws_networks",
+      "name": "databricks_network",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "account_id": "f187f55a-9d3d-463b-aa1a-d55818b704c9",
+            "creation_time": 1716562736543,
+            "error_messages": [],
+            "gcp_network_info": [
+              {
+                "network_project_id": "fe-dev-sandbox",
+                "pod_ip_range_name": "pods",
+                "service_ip_range_name": "service-subnet",
+                "subnet_id": "node-subnet",
+                "subnet_region": "europe-west1",
+                "vpc_id": "alek-tf-psc-vpc"
+              }
+            ],
+            "id": "f187f55a-9d3d-463b-aa1a-d55818b704c9/946aaf24-bfbf-45c3-a9fb-98257e0c16d0",
+            "network_id": "946aaf24-bfbf-45c3-a9fb-98257e0c16d0",
+            "network_name": "alek-tf-psc-vpc",
+            "security_group_ids": null,
+            "subnet_ids": null,
+            "vpc_endpoints": [],
+            "vpc_id": null,
+            "vpc_status": "VALID",
+            "workspace_id": 546452019228594
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "managed",
+      "type": "databricks_mws_private_access_settings",
+      "name": "pas",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "account_id": "f187f55a-9d3d-463b-aa1a-d55818b704c9",
+            "allowed_vpc_endpoint_ids": null,
+            "id": "f187f55a-9d3d-463b-aa1a-d55818b704c9/e28a71d1-79e9-4560-9f92-ee6b51e2ac52",
+            "private_access_level": "ACCOUNT",
+            "private_access_settings_id": "e28a71d1-79e9-4560-9f92-ee6b51e2ac52",
+            "private_access_settings_name": "pas-yj",
+            "public_access_enabled": true,
+            "region": "europe-west1"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "managed",
+      "type": "databricks_mws_workspaces",
+      "name": "databricks_workspace",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].accounts",
+      "instances": [
+        {
+          "schema_version": 3,
+          "attributes": {
+            "account_id": "f187f55a-9d3d-463b-aa1a-d55818b704c9",
+            "aws_region": null,
+            "cloud": "gcp",
+            "cloud_resource_container": [
+              {
+                "gcp": [
+                  {
+                    "project_id": "fe-dev-sandbox"
+                  }
+                ]
+              }
+            ],
+            "creation_time": 1716562854534,
+            "credentials_id": null,
+            "custom_tags": null,
+            "customer_managed_key_id": null,
+            "deployment_name": "546452019228594.4",
+            "external_customer_info": [],
+            "gcp_managed_network_config": [],
+            "gke_config": [
+              {
+                "connectivity_type": "PRIVATE_NODE_PUBLIC_MASTER",
+                "master_ip_range": "10.32.0.0/28"
+              }
+            ],
+            "id": "f187f55a-9d3d-463b-aa1a-d55818b704c9/546452019228594",
+            "is_no_public_ip_enabled": true,
+            "location": "europe-west1",
+            "managed_services_customer_managed_key_id": "184b5dd1-bb2d-4d88-b54a-9a8bc93a557b",
+            "network_id": "946aaf24-bfbf-45c3-a9fb-98257e0c16d0",
+            "pricing_tier": "PREMIUM",
+            "private_access_settings_id": null,
+            "storage_configuration_id": null,
+            "storage_customer_managed_key_id": "184b5dd1-bb2d-4d88-b54a-9a8bc93a557b",
+            "timeouts": null,
+            "token": [],
+            "workspace_id": 546452019228594,
+            "workspace_name": "dbx-alek-tf-ws-yj",
+            "workspace_status": "RUNNING",
+            "workspace_status_message": "Workspace is running.",
+            "workspace_url": "https://546452019228594.4.gcp.databricks.com"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJyZWFkIjoxMjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjEyMDAwMDAwMDAwMDB9LCJzY2hlbWFfdmVyc2lvbiI6IjMifQ==",
+          "dependencies": [
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "managed",
+      "type": "databricks_user",
+      "name": "me",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].workspace",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acl_principal_id": "users/aleksander.callebat@gmail.com",
+            "active": true,
+            "allow_cluster_create": false,
+            "allow_instance_pool_create": false,
+            "databricks_sql_access": false,
+            "disable_as_user_deletion": null,
+            "display_name": "alekstest caltest",
+            "external_id": "",
+            "force": null,
+            "force_delete_home_dir": null,
+            "force_delete_repos": null,
+            "home": "/Users/aleksander.callebat@gmail.com",
+            "id": "6374773917906331",
+            "repos": "/Repos/aleksander.callebat@gmail.com",
+            "user_name": "aleksander.callebat@gmail.com",
+            "workspace_access": false
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.gcp-workspace-full",
+      "mode": "managed",
+      "type": "databricks_workspace_conf",
+      "name": "this",
+      "provider": "module.gcp-workspace-full.provider[\"registry.terraform.io/databricks/databricks\"].workspace",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "custom_config": {
+              "enableIpAccessLists": "true"
+            },
+            "id": "_"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "module.gcp-workspace-full.databricks_mws_customer_managed_keys.this",
+            "module.gcp-workspace-full.databricks_mws_networks.databricks_network",
+            "module.gcp-workspace-full.databricks_mws_workspaces.databricks_workspace"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
