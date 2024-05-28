@@ -10,7 +10,6 @@ resource "google_service_account" "gcp_infra_provisionner_name" {
   display_name = "Service Account Provisionning PSC & CMEK inside Google"
 }
 
-
 data "google_iam_policy" "this" {
   provider = google
   binding {
@@ -64,7 +63,6 @@ resource "google_project_iam_custom_role" "workspace_creator" {
   ]
 }
 
-
 data "google_client_config" "current" {}
 
 resource "google_project_iam_member" "workspace_creator_can_create_workspaces" {
@@ -73,6 +71,7 @@ resource "google_project_iam_member" "workspace_creator_can_create_workspaces" {
   project = var.google_project
   provider = google
 }
+
 resource "google_project_iam_member" "workspace_creator_can_usePSC" {
   role    = "roles/compute.networkViewer"
   member  = "serviceAccount:${google_service_account.workspace_creator.email}"
@@ -85,7 +84,6 @@ resource "google_project_iam_member" "workspace_creator_can_createPSC" {
   role    = "roles/compute.networkAdmin"
   member  = "serviceAccount:${google_service_account.gcp_infra_provisionner_name.email}"
   project = var.google_project
-
 }
 
 resource "google_project_iam_member" "workspace_creator_is_compute_admin" {

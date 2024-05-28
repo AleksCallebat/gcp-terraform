@@ -24,7 +24,3 @@ output "service_subnet_name" {
   value = var.service_subnet_name
 }
 
-
-output "random_string" {
-  value = random_string.databricks_suffix.result
-}

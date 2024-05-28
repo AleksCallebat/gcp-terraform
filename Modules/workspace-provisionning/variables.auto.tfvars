@@ -28,14 +28,13 @@ workspace_pe_name = "dbx-ws-pe"
 frontend_pe_ip_name = "dbx-pe-ip"
 backend_pe_name = "dbx-backend-pe"
 frontend_pe_name = "dbx-frontend-pe"
-random_string = ""
 
 # PSC VARIABLES CONFIGURATION
 # SEE DOC HERE : https://docs.gcp.databricks.com/en/resources/supported-regions.html#psc
 # TO IDENTITFY THE VALUE ASSOCIATED WITH THE REGION YOU ARE DEPLOYING TO (NEED TO BE ENABLED BY DATABRICKS BEFOREHAND)
 # The Relay Attachment is used by the SCC Conection for the Backend, while the Workspace Attachement is use by both Frontend and Backend PSC
-relay_service_attachment = "projects/prod-gcp-europe-west2/regions/europe-west2/serviceAttachments/plproxy-psc-endpoint-all-ports"
-workspace_service_attachment = "projects/prod-gcp-europe-west2/regions/europe-west2/serviceAttachments/plproxy-psc-endpoint-all-ports"
+relay_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
+workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
 
 # WORKSPACE MANAGEMENT CONFIGURATION
 databricks_account_console_url = "https://accounts.gcp.databricks.com"

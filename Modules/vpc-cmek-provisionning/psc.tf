@@ -12,16 +12,8 @@ variable "backend_pe_name" {}
 variable "frontend_pe_name" {}
 
 
-# # Random suffix for databricks network and workspace
-resource "random_string" "databricks_suffix" {
-  special = false
-  upper   = false
-  length  = 2
-}
-
-
 resource "google_compute_subnetwork" "subnet-psc-endpoint" {
-  name          = "${var.google_pe_subnet_name}-${random_string.databricks_suffix.result}"
+  name          = "${var.google_pe_subnet_name}"
   ip_cidr_range = var.google_pe_subnet_range
   project = var.google_project
   region        = var.google_region
@@ -31,7 +23,7 @@ resource "google_compute_subnetwork" "subnet-psc-endpoint" {
 
 
 resource "google_compute_address" "backend_pe_ip_address" {
-  name         = "${var.workspace_pe_ip_name}-${random_string.databricks_suffix.result}"
+  name         = "${var.workspace_pe_ip_name}"
   provider     = google
   project      = var.google_project
   region       = var.google_region
@@ -40,7 +32,7 @@ resource "google_compute_address" "backend_pe_ip_address" {
 }
 
 resource "google_compute_address" "frontend_pe_ip_address" {
-  name         = "${var.frontend_pe_ip_name}-${random_string.databricks_suffix.result}"
+  name         = "${var.frontend_pe_ip_name}"
   provider     = google
   project      = var.google_project
   region       = var.google_region

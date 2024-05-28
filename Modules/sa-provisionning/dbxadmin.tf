@@ -1,6 +1,5 @@
 resource "databricks_user" "sa" {
   provider = databricks
-  
   display_name         = "SA for Account Provisionning"
   user_name = google_service_account.workspace_creator.email
 }

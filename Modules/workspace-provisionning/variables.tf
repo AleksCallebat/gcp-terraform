@@ -16,10 +16,7 @@ variable "node_subnet_name" {}
 variable "service_subnet_name" {}
 variable "subnet_ip_cidr_range" {}
 variable "pod_ip_cidr_range" {}
-# variable "nat_name" {}
-# variable "router_name" {}
 variable "svc_ip_cidr_range" {}
-variable "random_string" {  }
 
 variable "relay_service_attachment" {}
 variable "frontend_pe_ip_name" {}

@@ -12,15 +12,13 @@ module "gcp-workspace-full" {
   google_shared_vpc_project = var.google_project
   databricks_account_console_url = var.databricks_account_console_url
   google_project_name = var.google_project
-  databricks_workspace_name = "${var.databricks_workspace_name}-${var.random_string}"
+  databricks_workspace_name = "${var.databricks_workspace_name}"
   google_region = var.google_region
   workspace_admin_email = var.workspace_admin_email
 
   cmek_resource_id = var.cmek_resource_id
-  random_string = var.random_string
 
-  # router_name = "${var.router_name}-${local.random_string}"
-  # nat_name = "${var.nat_name}-${local.random_string}"
+
   pod_ip_cidr_range = var.pod_ip_cidr_range
   subnet_ip_cidr_range = var.subnet_ip_cidr_range
   svc_ip_cidr_range = var.svc_ip_cidr_range
@@ -37,4 +35,8 @@ module "gcp-workspace-full" {
  
 
   
+}
+
+output "workspace_url" {
+  value = module.gcp-workspace-full.workspace_url
 }

@@ -2,9 +2,7 @@ variable "google_project_name" {}
 variable "google_region" {}
 variable "google_shared_vpc_project" {}
 variable "workspace_creator_sa_name" {}
-variable "random_string" {
-  default = "random_string"
-}
+
 
 
 terraform {

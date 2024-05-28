@@ -12,33 +12,33 @@ variable "backend_pe_name" {}
 variable "frontend_pe_name" {}
 
 # Provision databricks network configuration > backend vpc endpoint
-# resource "databricks_mws_vpc_endpoint" "backend_vpce" {
-#   provider = databricks.accounts
-#   account_id          = var.databricks_account_id
-#   vpc_endpoint_name   = "backend-backend-ep-${var.random_string}"
-#   gcp_vpc_endpoint_info {
-#     project_id        = var.google_shared_vpc_project
-#     psc_endpoint_name = var.workspace_pe_name
-#     endpoint_region   = var.google_region
-# }
-# }
+resource "databricks_mws_vpc_endpoint" "backend_vpce" {
+  provider = databricks.accounts
+  account_id          = var.databricks_account_id
+  vpc_endpoint_name   = "backend-backend-ep"
+  gcp_vpc_endpoint_info {
+    project_id        = var.google_shared_vpc_project
+    psc_endpoint_name = var.workspace_pe_name
+    endpoint_region   = var.google_region
+}
+}
 
 # # Provision databricks network configuration > frontend vpc endpoint
-# resource "databricks_mws_vpc_endpoint" "workspace_vpce" {
-#   provider = databricks.accounts
-#   account_id          = var.databricks_account_id
-#   vpc_endpoint_name   = "frontend-workspace-ep-${var.random_string}"
-#   gcp_vpc_endpoint_info {
-#     project_id        = var.google_shared_vpc_project
-#     psc_endpoint_name = var.workspace_pe_name
-#     endpoint_region   = var.google_region
-# }
-# }
+resource "databricks_mws_vpc_endpoint" "workspace_vpce" {
+  provider = databricks.accounts
+  account_id          = var.databricks_account_id
+  vpc_endpoint_name   = "frontend-workspace-ep"
+  gcp_vpc_endpoint_info {
+    project_id        = var.google_shared_vpc_project
+    psc_endpoint_name = var.workspace_pe_name
+    endpoint_region   = var.google_region
+}
+}
 
 # Provision databricks private access configuration > applies to vpc endpoint
 resource "databricks_mws_private_access_settings" "pas" {
   provider = databricks.accounts
-  private_access_settings_name = "pas-${var.random_string}"
+  private_access_settings_name = "pas-settings"
   region                       = var.google_region
   
   /*
