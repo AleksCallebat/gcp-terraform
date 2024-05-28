@@ -1,4 +1,4 @@
-## PREREQUISITES : 
+## Prerequisites and how to run 
 1. <b>Have access to a Service Account</b> (Hereby nameded Deployer SA) with the following minimal permissions inside the project you are going to deploy it to :
 - iam.roles.create
 - iam.roles.delete
