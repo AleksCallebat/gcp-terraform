@@ -3,7 +3,7 @@ variable "google_project" {}
 variable "google_region" {}
 
 variable "workspace_creator_sa_name" {}
-variable "gcp_infra_provisionner_name" {}
+variable "gcp_infra_provisioner_name" {}
 variable "workspace_creator_role_name"{}
 
 variable "delegate_from" {

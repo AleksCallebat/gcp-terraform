@@ -4,9 +4,9 @@ resource "google_service_account" "workspace_creator" {
   display_name = "Service Account for Databricks Provisioning"
 }
 
-resource "google_service_account" "gcp_infra_provisionner_name" {
+resource "google_service_account" "gcp_infra_provisioner_name" {
   provider = google
-  account_id   = var.gcp_infra_provisionner_name
+  account_id   = var.gcp_infra_provisioner_name
   display_name = "Service Account Provisionning PSC & CMEK inside Google"
 }
 
@@ -25,7 +25,7 @@ resource "google_service_account_iam_policy" "impersonate_workspace_creator" {
 }
 resource "google_service_account_iam_policy" "impersonate_gcp_infra_provisionner" {
   provider = google
-  service_account_id = google_service_account.gcp_infra_provisionner_name.name
+  service_account_id = google_service_account.gcp_infra_provisioner_name.name
   policy_data        = data.google_iam_policy.this.policy_data
 }
 
@@ -82,13 +82,13 @@ resource "google_project_iam_member" "workspace_creator_can_usePSC" {
 # GCP RESOURCES PERMISSIONS
 resource "google_project_iam_member" "workspace_creator_can_createPSC" {
   role    = "roles/compute.networkAdmin"
-  member  = "serviceAccount:${google_service_account.gcp_infra_provisionner_name.email}"
+  member  = "serviceAccount:${google_service_account.gcp_infra_provisioner_name.email}"
   project = var.google_project
 }
 
 resource "google_project_iam_member" "workspace_creator_is_compute_admin" {
   role    = "roles/compute.admin"
-  member  = "serviceAccount:${google_service_account.gcp_infra_provisionner_name.email}"
+  member  = "serviceAccount:${google_service_account.gcp_infra_provisioner_name.email}"
   project = var.google_project
 
 }
@@ -97,7 +97,7 @@ resource "google_project_iam_member" "workspace_creator_is_compute_admin" {
 # NEEDED TO AVOID USING THE DEFAULT COMPUTE ENGINE SA
 resource "google_project_iam_member" "gcp_infra_provisionner_can_assign_role" {
   role    = "roles/owner"
-  member  = "serviceAccount:${google_service_account.gcp_infra_provisionner_name.email}"
+  member  = "serviceAccount:${google_service_account.gcp_infra_provisioner_name.email}"
   project = var.google_project
 }
 
@@ -105,14 +105,14 @@ resource "google_project_iam_member" "gcp_infra_provisionner_can_assign_role" {
 # NEEDED TO PROVISION MANUALLY THE GKE SA
 resource "google_project_iam_member" "gcp_infra_provisionner_is_sa_admin" {
   role    = "roles/iam.serviceAccountAdmin"
-  member  = "serviceAccount:${google_service_account.gcp_infra_provisionner_name.email}"
+  member  = "serviceAccount:${google_service_account.gcp_infra_provisioner_name.email}"
   project = var.google_project
 }
 
 # NEEDED TO CREATE / MANAGE THE CMEK
 resource "google_project_iam_member" "gcp_infra_provisionner_is_kms_admin" {
   role    = "roles/cloudkms.admin"
-  member  = "serviceAccount:${google_service_account.gcp_infra_provisionner_name.email}"
+  member  = "serviceAccount:${google_service_account.gcp_infra_provisioner_name.email}"
   project = var.google_project
 }
 

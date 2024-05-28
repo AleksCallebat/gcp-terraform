@@ -7,7 +7,7 @@ output "service_account" {
   description = "Service Account for Databricks Workspace Deployment"
 }
 
-output "gcp_infra_provisionner_name" {
-  value       = google_service_account.gcp_infra_provisionner_name.email
+output "gcp_infra_provisioner_name" {
+  value       = google_service_account.gcp_infra_provisioner_name.email
   description = "Service Account for Databricks Workspace Deployment"
 }
