@@ -7,10 +7,10 @@
 from google.cloud import cloudquotas_v1
 import pandas as pd
 
-# PARAMETERS
-project_id = 'fe-dev-sandbox'
+# USER PARAMETERS
+project_id = '<PROJECT_ID>'
 google_region = 'europe-west1'
-google_zone = "" # Leave empty to check across all the region
+google_zone = "" # Leave empty to check across all the region. It will then raise an issue if any zone has insufficient quota.
 
 
 # CONSTANTS
