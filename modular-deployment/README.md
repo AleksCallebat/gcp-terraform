@@ -62,6 +62,10 @@ Use the comments in the variables file for configuration guidance and instructio
 ## Create the Workspace Creator SA and Infrastructure Provisioner SA
 Creates the *Workspace Creator* Service Account, and the *Infrastructure Provisioner* Service Account with the required privileges for each SA.
 
+#### Option: set the Terraform vars locally without updating the Git Repo version
++ Make a copy of the Terraform vars file in the local folder: `cp modular-deployment/sa-provisioning/variables.auto.tfvars ./local/sa.tfvars`
++ Edit `./local/sa.tfvars` and set the values as required, according to the comments in the file
+
 + Change directory to the folder `modules/sa-provisioning`
 + Run `terraform init` (only necessary for the first Terraform execution in this folder)
 + Run `terraform apply`
