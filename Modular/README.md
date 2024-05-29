@@ -15,7 +15,7 @@ This Repo refers to three classes of Service Account (SA) identities in the work
   
 + **Target GCP Project** - this is the GCP Project in which the Databricks Workspace and associated cloud infrastructure ("Compute Plane") will be created.  
 
-## Prerequisites 
+## Prerequisites  
 
 + Create a *Deployer* SA in the Target GCP Project with the minimum required permissions as follows:
 ```
