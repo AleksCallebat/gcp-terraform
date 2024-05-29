@@ -6,9 +6,10 @@
 gcp-workspace-full/.terraform/
 */.terraform/
 **/.terraform/
-*.json
+#*.json
 *.hcl
 *.terraform.lock.hcl
 legacy/
 */.DS_Store
 .DS_Store
+.idea

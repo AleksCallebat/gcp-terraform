@@ -41,7 +41,13 @@ resourcemanager.projects.getIamPolicy
 resourcemanager.projects.setIamPolicy
 ```
 
-+ Confirm that PSC (Private Service Connect) is enabled for the Target GCP Project and GCP region where the workspace is to be deployed to.  *This step needs to be performed by the Databricks customer account team* .
+This service account and privilege setup can be done by running the script
+
+```
+helpers/create_deployer_sa.sh
+```
+
++ If configuring Private Service Connect (PSC), Confirm that PSC is enabled for the Target GCP Project and GCP region where the workspace is to be deployed to.  *This step needs to be performed by the Databricks customer account team* .
 
 
 ## Configure Terraform Variables
