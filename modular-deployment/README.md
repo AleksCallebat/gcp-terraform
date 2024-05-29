@@ -102,7 +102,7 @@ This step switches to impersonate the *Infrastructure Provisioner* and then crea
 + Edit `./local/vpc-cmek.tfvars` and set the values as required, according to the comments in the file.
 
 ### Change Directory to work locally in the `vpc-cmek-provisioning` folder
-+ Change directory to the folder `modules/vpc-cmek-provisioning`
++ Change directory to the folder `modular-deployment/vpc-cmek-provisioning`
 
 ### Authenticate as the Deployer SA
 + Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to point to the location of the key file for authenticating to the Deployer SA:   
@@ -130,7 +130,7 @@ This step switches to impersonate the **Workspace Creator** and then deploys the
 + Edit `./local/workspace.tfvars` and set the values as required, according to the comments in the file.
 
 ### Change Directory to work locally in the `workspace-provisioning` folder
-+ Change directory to the folder `modules/workspace-provisioning`
++ Change directory to the folder `modular-deployment/workspace-provisioning`
 
 ### Authenticate as the Deployer SA
 + Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to point to the location of the key file for authenticating to the Deployer SA:   
