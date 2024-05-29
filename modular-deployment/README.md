@@ -9,7 +9,7 @@ This is broken out into three separate modules
 2. Create CMEK Services and Setup Networking
 3. Deploy the Databricks Workspace
 
-Each module has it's own Terraform folder and configuration.
+Each module has its own Terraform folder and configuration.
 
 The Workspace Creation is dependent on steps 1 and 2.
 
