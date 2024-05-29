@@ -1,5 +1,13 @@
-## Prerequisites and how to run 
-1. <b>Have access to a Service Account</b> (Hereby nameded Deployer SA) with the following minimal permissions inside the project you are going to deploy it to :
+## Terminology 
+
+Deployer - This is the current identity used to run terraform
+
+
+## Prerequisites - set up the deployer SA and Authenticate to it
+
+This Service Account (SA) will be used to authenticate to GCP. This SA can create and then impersonnate a more privileged account.
+
+1. <b>Have access to a Service Account</b> (Hereby named Deployer SA) with the following minimal permissions inside the project you are going to deploy it to :
 - iam.roles.create
 - iam.roles.delete
 - iam.roles.get
@@ -21,7 +29,7 @@
 - resourcemanager.projects.getIamPolicy
 - resourcemanager.projects.setIamPolicy
 
-2. <b>Authenticate to this SA</b>, for instance by having its json key and adding its path to the env variable `GOOGLE_APPLICATION_CREDENTIALS`
+2. <b>Authenticate to this SA</b>, for instance by downloading its json key and adding its path to the env variable `GOOGLE_APPLICATION_CREDENTIALS`
 
 3. <b>Make sure that PSC is enabled </b> by the Databricks team in the region and project where you want to deploy it to
 
@@ -38,7 +46,7 @@
 SA Deployer creates 2 SA : the Workspace Creator Service Account, and the GCP Infra Provisionner Service Account. It then grants them the required GCP & Databricks rights
 
 ## Step 2 : vpc-cmek-provisioning
-SA Infra Povisionner creates the required networking, CMEK Services, as well as the required alteration to the GKE SA
+SA Infra Povisionner creates the required networking, CMEK Services, PSC Endpoints, as well as the required alteration to the GKE SA
 
 ## Step 3 : workspace-provisioning
 SA Workspace Creator deploys the Databricks networking elements, Workspace and Unity Catalog
