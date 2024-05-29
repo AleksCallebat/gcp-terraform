@@ -6,7 +6,7 @@
 gcp-workspace-full/.terraform/
 */.terraform/
 **/.terraform/
-#*.json
+*.json
 *.hcl
 *.terraform.lock.hcl
 legacy/
