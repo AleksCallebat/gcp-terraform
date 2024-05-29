@@ -1,0 +1,27 @@
+{
+  "title": "CustomRoleDeployer",
+  "description": "Custom role with permissions for Databricks Deployer SA",
+  "stage": "GA",
+  "includedPermissions": [
+    "iam.roles.create",
+    "iam.roles.delete",
+    "iam.roles.get",
+    "iam.roles.undelete",
+    "iam.roles.update",
+    "iam.serviceAccounts.actAs",
+    "iam.serviceAccounts.create",
+    "iam.serviceAccounts.delete",
+    "iam.serviceAccounts.get",
+    "iam.serviceAccounts.getAccessToken",
+    "iam.serviceAccounts.getIamPolicy",
+    "iam.serviceAccounts.getOpenIdToken",
+    "iam.serviceAccounts.implicitDelegation",
+    "iam.serviceAccounts.list",
+    "iam.serviceAccounts.setIamPolicy",
+    "iam.serviceAccounts.signBlob",
+    "iam.serviceAccounts.signJwt",
+    "resourcemanager.projects.get",
+    "resourcemanager.projects.getIamPolicy",
+    "resourcemanager.projects.setIamPolicy"
+  ]
+}

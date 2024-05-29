@@ -1,8 +1,17 @@
 
 
-## Databricks Workspace Deployment using Terraform 
+# Databricks Workspace Deployment using Terraform 
 
 Secure Databricks workspace deployment incorporating CMEK (Customer Managed Encryption Key), PSC (Private Service Connect) and Custom VPC.
+
+This is broken out into three separate modules
+1. Create the Workspace Creator SA and Infrastructure Provisioner SA
+2. Create CMEK Services and Setup Networking
+3. Deploy the Databricks Workspace
+
+Each module has it's own Terraform folder and configuration.
+
+The Workspace Creation is dependent on steps 1 and 2.
 
 ## Terminology
 
@@ -41,37 +50,97 @@ resourcemanager.projects.getIamPolicy
 resourcemanager.projects.setIamPolicy
 ```
 
-+ Confirm that PSC (Private Service Connect) is enabled for the Target GCP Project and GCP region where the workspace is to be deployed to.  *This step needs to be performed by the Databricks customer account team* .
+This service account and privilege setup can be done by running the script
+
+```
+helpers/create_deployer_sa.sh
+```
+Run the script from the Repo root, not in the `helpers` folder.   
+This creates a JSON key file for the Deployer Service Account in the `./local` folder: `./local/deployer.json`
+   
+   
++ If configuring Private Service Connect (PSC), Confirm that PSC is enabled for the Target GCP Project and GCP region where the workspace is to be deployed to.  *This step needs to be performed by the Databricks customer account team* .
 
 
-## Configure Terraform Variables
+## 1. Create the Workspace Creator SA and Infrastructure Provisioner SA
+This step creates the *Workspace Creator* Service Account, and the *Infrastructure Provisioner* Service Account with the required privileges for each SA.
 
-+ Configure the variable values set in the file `./end-to-end/modules/variables.auto.tfvars`.  This is referred to by the three modules `sa-provisioning`, `vpc-cmek-provisioning`, `workspace-provisioning`.
-Use the comments in the variables file for configuration guidance and instruction.
+### Option A: Configure the Terraform vars in the modular-deployment/sa-provisioning folder
++ Edit `./modular-deployment/sa-provisioning/variables.auto.tfvars` and set the values as required, according to the comments in the file.
++ These changes will need to be checked in to Git.
 
-## Authenticate as the Deployer SA
+### Option B: set the Terraform vars locally without updating the Git Repo version
++ Make a copy of the Terraform vars file in a local folder: `cp modular-deployment/sa-provisioning/variables.auto.tfvars ./local/sa.tfvars`
++ Edit `./local/sa.tfvars` and set the values as required, according to the comments in the file.
 
-+ Authenticate as the Deployer SA, typically using a json key file referenced by setting the shell environment variable `GOOGLE_APPLICATION_CREDENTIALS` to point to its location.
+### Change Directory to work locally in the `sa-provisioning` folder
++ Change directory to the folder `modular-deployment/sa-provisioning`
 
-## Create the Workspace Creator SA and Infrastructure Provisioner SA
-Creates the *Workspace Creator* Service Account, and the *Infrastructure Provisioner* Service Account with the required privileges for each SA.
+### Authenticate as the Deployer SA
++ Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to point to the location of the key file for authenticating to the Deployer SA:  
+EXAMPLE
+```
+export GOOGLE_APPLICATION_CREDENTIALS=../../local/deployer.json
+```
 
-+ Change directory to the folder `modules/sa-provisioning`
+### Apply the Terraform
+
 + Run `terraform init` (only necessary for the first Terraform execution in this folder)
-+ Run `terraform apply`
++ Run `terraform apply` **OR** `terraform apply -var-file="../../local/sa.tfvars"` if a local override file has been created as per the Option listed above.
 
-## Create CMEK Services and Setup Networking
-Switches to impersonate the *Infrastructure Provisioner* and then creates the required networking, CMEK Services, as well as the required alteration to the GKE SA.
 
-+ Change directory to the folder `modules/vpc-cmek-provisioning`
+
+## 2. Create CMEK Services and Setup Networking
+This step switches to impersonate the *Infrastructure Provisioner* and then creates the required networking, CMEK Services, as well as the required alteration to the GKE SA.
+
+### Option A: Configure the Terraform vars in the modular-deployment/vpc-cmek-provisioning folder
++ Edit `./modular-deployment/vpc-cmek-provisioning/variables.auto.tfvars` and set the values as required, according to the comments in the file.
++ These changes will need to be checked in to Git.
+
+### Option B: set the Terraform vars locally without updating the Git Repo version
++ Make a copy of the Terraform vars file in a local folder: `cp modular-deployment/vpc-cmek-provisioning/variables.auto.tfvars ./local/vpc-cmek.tfvars`
++ Edit `./local/vpc-cmek.tfvars` and set the values as required, according to the comments in the file.
+
+### Change Directory to work locally in the `vpc-cmek-provisioning` folder
++ Change directory to the folder `modular-deployment/vpc-cmek-provisioning`
+
+### Authenticate as the Deployer SA
++ Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to point to the location of the key file for authenticating to the Deployer SA:   
+EXAMPLE
+```
+export GOOGLE_APPLICATION_CREDENTIALS=../../local/deployer.json
+```
+
+### Apply the Terraform
 + Run `terraform init` (only necessary for the first Terraform execution in this folder)
-+ Run `terraform apply`
++ Run `terraform apply` **OR** `terraform apply -var-file="../../local/vpc-cmek.tfvars"` if a local override file has been created as per the Option listed abov
 
-## Deploy the Databricks Workspace
-Switches to impersonate the **Workspace Creator** and then deploys the Databricks  Workspace and Unity Catalog.
 
-+ Change directory to the folder `modules/workspace-provisioning`
+
+
+## 3. Deploy the Databricks Workspace
+This step switches to impersonate the **Workspace Creator** and then deploys the Databricks  Workspace and Unity Catalog.
+
+### Option A: Configure the Terraform vars in the modular-deployment/sa-provisioning folder
++ Edit `./modular-deployment/sa-provisioning/variables.auto.tfvars` and set the values as required, according to the comments in the file.
++ These changes will need to be checked in to Git.
+
+### Option B: set the Terraform vars locally without updating the Git Repo version
++ Make a copy of the Terraform vars file in a local folder: `cp modular-deployment/workspace-provisioning/variables.auto.tfvars ./local/workspace.tfvars`
++ Edit `./local/workspace.tfvars` and set the values as required, according to the comments in the file.
+
+### Change Directory to work locally in the `workspace-provisioning` folder
++ Change directory to the folder `modular-deployment/workspace-provisioning`
+
+### Authenticate as the Deployer SA
++ Set the `GOOGLE_APPLICATION_CREDENTIALS` environment variable to point to the location of the key file for authenticating to the Deployer SA:   
+EXAMPLE
+```
+export GOOGLE_APPLICATION_CREDENTIALS=../../local/deployer.json
+```
+
+### Apply the Terraform
 + Run `terraform init` (only necessary for the first Terraform execution in this folder)
-+ Run `terraform apply`
++ Run `terraform apply` **OR** `terraform apply -var-file="../../local/workspace.tfvars"` if a local override file has been created as per the Option listed abov
 
 
