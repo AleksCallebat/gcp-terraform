@@ -6,10 +6,12 @@ variable "workspace_service_attachment" {}
 variable "workspace_pe_name" {}
 variable "workspace_pe_ip_name" {}
 variable "frontend_pe_ip_name" {}
+variable "relay_pe_ip_name" {}
 variable "google_pe_subnet_name" {}
 variable "google_pe_subnet_range" {}
-variable "backend_pe_name" {}
 variable "frontend_pe_name" {}
+variable "relay_pe_name" {}
+
 
 
 resource "google_compute_subnetwork" "subnet-psc-endpoint" {
@@ -23,7 +25,7 @@ resource "google_compute_subnetwork" "subnet-psc-endpoint" {
 
 
 resource "google_compute_address" "backend_pe_ip_address" {
-  name         = "${var.workspace_pe_ip_name}"
+  name         = "${var.relay_pe_ip_name}"
   provider     = google
   project      = var.google_project
   region       = var.google_region
@@ -32,7 +34,7 @@ resource "google_compute_address" "backend_pe_ip_address" {
 }
 
 resource "google_compute_address" "frontend_pe_ip_address" {
-  name         = "${var.frontend_pe_ip_name}"
+  name         = "${var.workspace_pe_ip_name}"
   provider     = google
   project      = var.google_project
   region       = var.google_region
@@ -47,7 +49,7 @@ resource "google_compute_forwarding_rule" "backend_psc_ep" {
   ]
   region      = var.google_region
   project     = var.google_project
-  name        = var.backend_pe_name
+  name        = var.relay_pe_name
   network     = google_compute_network.dbx_private_vpc.id
   ip_address  = google_compute_address.backend_pe_ip_address.id
   target      = var.relay_service_attachment
@@ -60,7 +62,7 @@ resource "google_compute_forwarding_rule" "frontend_psc_ep" {
     google_compute_address.frontend_pe_ip_address
   ]
   region      = var.google_region
-  name        = var.frontend_pe_name
+  name        = var.workspace_pe_name
   project     = var.google_project
   network     = google_compute_network.dbx_private_vpc.id
   ip_address  = google_compute_address.frontend_pe_ip_address.id

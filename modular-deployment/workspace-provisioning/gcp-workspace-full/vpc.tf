@@ -20,7 +20,7 @@ resource "databricks_mws_networks" "databricks_network" {
     service_ip_range_name = var.service_subnet_name
   }
    vpc_endpoints {
-    dataplane_relay = [databricks_mws_vpc_endpoint.backend_vpce.vpc_endpoint_id]
+    dataplane_relay = [databricks_mws_vpc_endpoint.relay_vpce.vpc_endpoint_id]
     rest_api        = [databricks_mws_vpc_endpoint.workspace_vpce.vpc_endpoint_id]
   }
 }

@@ -8,17 +8,16 @@ variable "workspace_pe_ip_name" {}
 variable "frontend_pe_ip_name" {}
 variable "google_pe_subnet_name" {}
 variable "google_pe_subnet_range" {}
-variable "backend_pe_name" {}
-variable "frontend_pe_name" {}
+variable "relay_pe_name" {}
 
 # Provision databricks network configuration > backend vpc endpoint
-resource "databricks_mws_vpc_endpoint" "backend_vpce" {
+resource "databricks_mws_vpc_endpoint" "relay_vpce" {
   provider = databricks.accounts
   account_id          = var.databricks_account_id
-  vpc_endpoint_name   = "backend-backend-ep"
+  vpc_endpoint_name   = "backend-relay-ep"
   gcp_vpc_endpoint_info {
     project_id        = var.google_shared_vpc_project
-    psc_endpoint_name = var.workspace_pe_name
+    psc_endpoint_name = var.relay_pe_name
     endpoint_region   = var.google_region
 }
 }

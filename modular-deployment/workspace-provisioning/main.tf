@@ -26,13 +26,11 @@ module "gcp-workspace-full" {
   relay_service_attachment = var.relay_service_attachment
   workspace_service_attachment = var.workspace_service_attachment
   frontend_pe_ip_name = var.frontend_pe_ip_name
-  backend_pe_name = var.backend_pe_name
-  frontend_pe_name = var.frontend_pe_name
   google_pe_subnet_name = var.google_pe_subnet_name
   google_pe_subnet_range = var.google_pe_subnet_range
   workspace_pe_name = var.workspace_pe_name
+  relay_pe_name = var.relay_pe_name
   workspace_pe_ip_name = var.workspace_pe_ip_name
- 
 
   
 }
