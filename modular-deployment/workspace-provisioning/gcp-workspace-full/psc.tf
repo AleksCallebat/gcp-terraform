@@ -3,7 +3,6 @@
 
 variable "workspace_pe_name" {}
 variable "workspace_pe_ip_name" {}
-variable "frontend_pe_ip_name" {}
 variable "google_pe_subnet_name" {}
 variable "google_pe_subnet_range" {}
 variable "relay_pe_name" {}
@@ -24,7 +23,7 @@ resource "databricks_mws_vpc_endpoint" "relay_vpce" {
 resource "databricks_mws_vpc_endpoint" "workspace_vpce" {
   provider = databricks.accounts
   account_id          = var.databricks_account_id
-  vpc_endpoint_name   = "frontend-workspace-ep"
+  vpc_endpoint_name   = "rest-workspace-ep"
   gcp_vpc_endpoint_info {
     project_id        = var.google_shared_vpc_project
     psc_endpoint_name = var.workspace_pe_name

@@ -28,9 +28,6 @@ google_pe_subnet_range = "10.3.0.0/24"
 workspace_pe_name = "dbx-ws-pe"
 relay_pe_name = "dbx-relay-pe"
 relay_pe_ip_name = "dbx-relay-ip"
-frontend_pe_ip_name = "dbx-pe-ip"
-frontend_pe_name = "dbx-frontend-pe"
-# workspace_pe_ip_name = "dbx-pe-ip"
 
 # PSC VARIABLES CONFIGURATION
 # SEE DOC HERE : https://docs.gcp.databricks.com/en/resources/supported-regions.html#psc

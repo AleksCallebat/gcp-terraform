@@ -18,7 +18,6 @@ variable "subnet_ip_cidr_range" {}
 variable "pod_ip_cidr_range" {}
 variable "svc_ip_cidr_range" {}
 
-variable "frontend_pe_ip_name" {}
 variable "google_pe_subnet_name" {}
 variable "google_pe_subnet_range" {}
 variable "workspace_pe_name" {}

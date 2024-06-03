@@ -23,7 +23,6 @@ module "gcp-workspace-full" {
   subnet_ip_cidr_range = var.subnet_ip_cidr_range
   svc_ip_cidr_range = var.svc_ip_cidr_range
   workspace_creator_sa_name = var.workspace_creator_sa_name 
-  frontend_pe_ip_name = var.frontend_pe_ip_name
   google_pe_subnet_name = var.google_pe_subnet_name
   google_pe_subnet_range = var.google_pe_subnet_range
   workspace_pe_name = var.workspace_pe_name

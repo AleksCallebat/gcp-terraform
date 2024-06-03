@@ -37,7 +37,7 @@ frontend_pe_name = "dbx-frontend-pe"
 # TO IDENTITFY THE VALUE ASSOCIATED WITH THE RGEION YOU ARE DEPLOYING TO (NEED TO BE ENABLED BY DATABRICKS BEFOREHAND)
 # The Relay Attachment is used by the SCC Conection for the Backend, while the Workspace Attachement is use by both Frontend and Backend PSC
 relay_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
-workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
+workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/ngrok-psc-endpoint"
 
 
 
