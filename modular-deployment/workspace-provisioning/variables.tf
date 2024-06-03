@@ -18,13 +18,11 @@ variable "subnet_ip_cidr_range" {}
 variable "pod_ip_cidr_range" {}
 variable "svc_ip_cidr_range" {}
 
-variable "relay_service_attachment" {}
 variable "frontend_pe_ip_name" {}
 variable "google_pe_subnet_name" {}
 variable "google_pe_subnet_range" {}
 variable "workspace_pe_name" {}
 variable "relay_pe_name" {}
-variable "workspace_service_attachment" {}
 variable "workspace_pe_ip_name" {}
 
 variable "databricks_account_console_url" {}

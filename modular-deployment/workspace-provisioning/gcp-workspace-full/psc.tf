@@ -1,7 +1,5 @@
 # # PSC endpoints creation
 # # Make sure that the endpoints are created before you create the workspace
-variable "relay_service_attachment" {}
-variable "workspace_service_attachment" {}
 
 variable "workspace_pe_name" {}
 variable "workspace_pe_ip_name" {}
