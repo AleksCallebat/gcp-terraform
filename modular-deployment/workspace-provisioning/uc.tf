@@ -54,7 +54,7 @@ resource "databricks_metastore_assignment" "this" {
 resource "databricks_group" "workspace_users"{
   depends_on = [ module.gcp-workspace-full ]
   provider = databricks.accounts
-  display_name = "workspace users"
+  display_name = "users for workspace - ${module.gcp-workspace-full.workspace_name}"
   allow_cluster_create = true
   allow_instance_pool_create = true
 }
