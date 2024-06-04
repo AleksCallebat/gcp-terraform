@@ -1,13 +1,13 @@
-google_project = "dbx-<env>-<region>-<lob>"
-google_region = "europe-west1"
+google_project = "fe-dev-sandbox"
+google_region = "us-east4"
 
 # NAME OF THE SA THAT WILL PROVISION THE GCP RESOURCES
-gcp_infra_provisionning_sa = "dbx-<env>-<region>-gcp-infrastructure-sa@fe-dev-sandbox.iam.gserviceaccount.com"
+gcp_infra_provisionning_sa = "alek-tf-priviledged-nfbj8i@fe-dev-sandbox.iam.gserviceaccount.com"
 
 ## NETWORKING
 # NETWORK USED BY THE DATABRICKS WORKSPACE (It is provisionned by the current terraform template)
 # See https://docs.gcp.databricks.com/en/administration-guide/cloud-configurations/gcp/network-sizing.html to adjust the subnet range
-google_vpc_name = "dbx-<env>-<region>-psc-vpc"
+google_vpc_name = "alek-psc-us-vpc"
 pod_subnet_name = "pods-subnet"
 node_subnet_name = "node-subnet"
 service_subnet_name = "service-subnet"
@@ -17,9 +17,9 @@ service_ip_cidr_range = "10.2.0.0/20"
 
 
 # CMEK MANAGEMENT
-keyring_name = "dbx-<env>-<region>-<lob>-keyring"
-key_name = "dbx-<env>-<region>-<lob>-key"
-use_existing_key = false
+keyring_name = "dbx-alek-eu-keyring"
+key_name = "dbx-alek-eu-key"
+use_existing_key=false
 
 # PSC VARIABLES CONFIGURATION FOR PRIVATE ENDPOINT
 workspace_pe_ip_name = "dbx-backend-pe-ip"
@@ -33,8 +33,8 @@ relay_pe_ip_name = "dbx-relay-ip"
 # SEE DOC HERE : https://docs.gcp.databricks.com/en/resources/supported-regions.html#psc
 # TO IDENTITFY THE VALUE ASSOCIATED WITH THE RGEION YOU ARE DEPLOYING TO (NEED TO BE ENABLED BY DATABRICKS BEFOREHAND)
 # The Relay Attachment is used by the SCC Conection for the Backend, while the Workspace Attachement is use by both Frontend and Backend PSC
-relay_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
-workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
+relay_service_attachment = "projects/prod-gcp-us-east4/regions/us-east4/serviceAttachments/plproxy-psc-endpoint-all-ports"
+workspace_service_attachment = "projects/prod-gcp-us-east4/regions/us-east4/serviceAttachments/ngrok-psc-endpoint"
 
 
 

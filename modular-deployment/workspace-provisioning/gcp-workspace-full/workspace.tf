@@ -21,7 +21,7 @@ resource "databricks_mws_workspaces" "databricks_workspace" {
       project_id = var.google_project_name
     }
   }
-  private_access_settings_id = databricks_mws_private_access_settings.pas.private_access_settings_id
+  # private_access_settings_id = databricks_mws_private_access_settings.pas.private_access_settings_id
   network_id = databricks_mws_networks.databricks_network.network_id
   gke_config {
     connectivity_type = "PRIVATE_NODE_PUBLIC_MASTER"

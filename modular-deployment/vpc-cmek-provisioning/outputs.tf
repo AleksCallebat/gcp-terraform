@@ -1,5 +1,5 @@
 output "cmek_resource_id" {
-  value = var.use_existing_key?"not provisioned as use_existing_key=false":google_kms_crypto_key.databricks_key[0].id
+  value = var.use_existing_key?"not provisioned as use_existing_key=true":google_kms_crypto_key.databricks_key[0].id
 }
 
 output "vpc_id" {
