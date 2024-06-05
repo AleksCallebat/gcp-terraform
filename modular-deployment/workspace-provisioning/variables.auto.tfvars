@@ -1,5 +1,5 @@
 google_project = "fe-dev-sandbox"
-google_region = "us-east4"
+google_region = "europe-west1"
 databricks_account_id = "f187f55a-9d3d-463b-aa1a-d55818b704c9" #prod
 # databricks_account_id = "<ACCOUNT_ID>" #prod
 
@@ -19,7 +19,7 @@ pod_ip_cidr_range = "10.1.0.0/20"
 svc_ip_cidr_range = "10.2.0.0/20"
 
 # CMEK MANAGEMENT
-cmek_resource_id = "projects/fe-dev-sandbox/locations/us-east4/keyRings/dbx-alek-eu-keyring/cryptoKeys/dbx-alek-eu-key"
+cmek_resource_id = "projects/fe-dev-sandbox/locations/europe-west1/keyRings/dbx-alek-eu1-tf-keyring/cryptoKeys/tf-test"
 
 # PSC VARIABLES CONFIGURATION FOR PRIVATE ENDPOINT
 workspace_pe_ip_name = "dbx-backend-pe-ip"
@@ -36,7 +36,7 @@ workspace_admin_email = "aleksander.callebat@databricks.com"
 
 # UNITY CATALOG CONFIGURATION
 uc_storage_name = "dbx-alek-us-tf-uc" # Not Read if metastore_exists=true
-metastore_name = "cust-uc-test"
+metastore_name = "aleks-cross-cloud-test"
 use_existing_metastore = true 
 workspace_users = []
 

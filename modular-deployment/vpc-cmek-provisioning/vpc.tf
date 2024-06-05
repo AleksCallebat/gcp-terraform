@@ -12,7 +12,11 @@ resource "google_compute_network" "dbx_private_vpc" {
   project                 = var.google_project
   name                    = var.google_vpc_name
   auto_create_subnetworks = false
+  delete_default_routes_on_create = true
+
 }
+
+
 
 resource "google_compute_subnetwork" "network-with-private-secondary-ip-ranges" {
   name          = var.node_subnet_name
