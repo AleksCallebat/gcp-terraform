@@ -2,23 +2,27 @@ google_project = "fe-dev-sandbox"
 google_region = "europe-west1"
 
 # NAME OF THE SA THAT WILL PROVISION THE GCP RESOURCES
-gcp_infra_provisionning_sa = "alek-tf-priviledged-nfbj8i@fe-dev-sandbox.iam.gserviceaccount.com"
+gcp_infra_provisionning_sa = "dbx-alek-eu-gcp-infra-sa@fe-dev-sandbox.iam.gserviceaccount.com"
 
 ## NETWORKING
 # NETWORK USED BY THE DATABRICKS WORKSPACE (It is provisionned by the current terraform template)
 # See https://docs.gcp.databricks.com/en/administration-guide/cloud-configurations/gcp/network-sizing.html to adjust the subnet range
-google_vpc_name = "alek-psc-us-vpc"
+google_vpc_name = "alek-psc-europe-with-firewall"
 pod_subnet_name = "pods-subnet"
 node_subnet_name = "node-subnet"
 service_subnet_name = "service-subnet"
 subnet_ip_cidr_range = "10.0.0.0/20"
 pod_ip_cidr_range = "10.1.0.0/20"
 service_ip_cidr_range = "10.2.0.0/20"
+gke_master_ip_range = "10.3.0.0/28"
+
+## FIREWALL IPS TO WHITELIST -- SEE DOC TO FIND REGIONAL VALUE : https://docs.gcp.databricks.com/en/resources/supported-regions.html#ip-domain-gcp
+regional_metastore_ip ="34.76.244.202"
 
 
 # CMEK MANAGEMENT
 keyring_name = "dbx-alek-eu-keyring"
-key_name = "dbx-alek-eu-key"
+key_name = "dbx-alek-eu-keyring"
 use_existing_key=true
 
 # PSC VARIABLES CONFIGURATION FOR PRIVATE ENDPOINT
@@ -32,7 +36,7 @@ relay_pe_ip_name = "dbx-relay-ip"
 # PSC VARIABLES CONFIGURATION
 # SEE DOC HERE : https://docs.gcp.databricks.com/en/resources/supported-regions.html#psc
 # TO IDENTITFY THE VALUE ASSOCIATED WITH THE RGEION YOU ARE DEPLOYING TO (NEED TO BE ENABLED BY DATABRICKS BEFOREHAND)
-# The Relay Attachment is used by the SCC Conection for the Backend, while the Workspace Attachement is use by both Frontend and Backend PSC
+# The Relay Attachment is eued by the SCC Conection for the Backend, while the Workspace Attachement is use by both Frontend and Backend PSC
 relay_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
 workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/ngrok-psc-endpoint"
 

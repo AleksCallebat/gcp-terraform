@@ -1,11 +1,15 @@
 variable "pod_ip_cidr_range" {}
 variable "service_ip_cidr_range" {}
 variable "subnet_ip_cidr_range" {}
+variable "gke_master_ip_range" {}
 variable "google_vpc_name" {}
 variable "pod_subnet_name" {}
 variable "service_subnet_name" {}
 variable "node_subnet_name" {}
 
+variable "regional_metastore_ip" {}
+
+# BUILT BASED ON THIS DOC - https://docs.gcp.databricks.com/en/security/network/classic/firewall.html#step-3-add-vpc-firewall-rules
 
 
 resource "google_compute_network" "dbx_private_vpc" {
@@ -35,3 +39,36 @@ resource "google_compute_subnetwork" "network-with-private-secondary-ip-ranges" 
   private_ip_google_access = true
 }
 
+
+
+module "firewall_rules" {
+  source       = "terraform-google-modules/network/google//modules/firewall-rules"
+  project_id   = var.google_project
+  network_name = google_compute_network.dbx_private_vpc.name
+
+  rules = [
+  {
+    name                    = "deny-egress-${google_compute_network.dbx_private_vpc.name}"
+    direction               = "EGRESS"
+    priority                = 1100
+    destination_ranges      = ["0.0.0.0/0"]
+    source_ranges           = []
+    allow = []
+    deny = [{protocol="all"}]
+   
+  },
+  {    
+    name                    = "to-databricks-managed-hive-${google_compute_network.dbx_private_vpc.name}"
+    direction               = "EGRESS"
+    priority                = 1010
+    destination_ranges      = []
+    source_ranges           = [var.regional_metastore_ip]
+    allow = [{
+      protocol="tcp"
+      ports = ["3306"]
+    }]
+    deny = []
+  }
+  ]
+}
+# IF YOU HAVE NON-PGA DATA SOURCES, YOU WILL NEED TO MODIFY THIS.
