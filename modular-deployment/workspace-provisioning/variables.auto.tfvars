@@ -17,7 +17,8 @@ service_subnet_name = "service-subnet"
 subnet_ip_cidr_range = "10.0.0.0/20"
 pod_ip_cidr_range = "10.1.0.0/20"
 svc_ip_cidr_range = "10.2.0.0/20"
-
+private_zone_name = "dbx-private-zone"
+dns_name = "dbx-dns"
 # CMEK MANAGEMENT
 cmek_resource_id = "projects/fe-dev-sandbox/locations/europe-west1/keyRings/dbx-alek-eu1-tf-keyring/cryptoKeys/tf-test"
 

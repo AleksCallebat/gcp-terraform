@@ -17,9 +17,11 @@ module "gcp-workspace-full" {
   workspace_admin_email = var.workspace_admin_email
 
   cmek_resource_id = var.cmek_resource_id
+  private_zone_name = var.private_zone_name
+  dns_name = var.dns_name 
 
 
-  pod_ip_cidr_range = var.pod_ip_cidr_range
+  pod_ip_cidr_range = var.pod_ip_cidr_range 
   subnet_ip_cidr_range = var.subnet_ip_cidr_range
   svc_ip_cidr_range = var.svc_ip_cidr_range
   workspace_creator_sa_name = var.workspace_creator_sa_name 

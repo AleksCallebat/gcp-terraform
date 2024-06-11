@@ -17,6 +17,9 @@ variable "service_subnet_name" {}
 variable "subnet_ip_cidr_range" {}
 variable "pod_ip_cidr_range" {}
 variable "svc_ip_cidr_range" {}
+variable "private_zone_name" {}
+variable "dns_name" {}
+
 
 variable "google_pe_subnet_name" {}
 variable "google_pe_subnet_range" {}
