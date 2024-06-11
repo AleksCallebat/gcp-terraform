@@ -61,13 +61,11 @@ module "firewall_rules" {
     name                    = "to-databricks-managed-hive-${google_compute_network.dbx_private_vpc.name}"
     direction               = "EGRESS"
     priority                = 1010
-    destination_ranges      = []
     source_ranges           = [var.regional_metastore_ip]
     allow = [{
       protocol="tcp"
       ports = ["3306"]
     }]
-    deny = []
   }
   ]
 }

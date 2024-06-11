@@ -19,7 +19,6 @@ gke_master_ip_range = "10.3.0.0/28"
 ## FIREWALL IPS TO WHITELIST -- SEE DOC TO FIND REGIONAL VALUE : https://docs.gcp.databricks.com/en/resources/supported-regions.html#ip-domain-gcp
 regional_metastore_ip ="34.76.244.202"
 
-
 # CMEK MANAGEMENT
 keyring_name = "dbx-alek-eu-keyring"
 key_name = "dbx-alek-eu-keyring"

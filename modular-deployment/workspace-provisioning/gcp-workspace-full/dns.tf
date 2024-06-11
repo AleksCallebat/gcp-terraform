@@ -1,29 +1,29 @@
 # # Create private zone for "databricks" only after the workspace is successfully created
 
-# variable private_zone_name {}
-# variable dns_name {}
+variable private_zone_name {}
+variable dns_name {}
 
-# resource "google_dns_managed_zone" "databricks-private-zone" {
-#   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
-#   provider = google.vpc_project
-#   name        = var.private_zone_name
-#   dns_name    = var.dns_name
-#   description = "Databricks private DNS zone"
-#   visibility = "private"
-#   private_visibility_config {
-#     networks {
-#       network_url = "https://www.googleapis.com/compute/v1/projects/${var.google_shared_vpc_project}/global/networks/${var.google_vpc_id}"
-#     }
-#   }
-# }
+resource "google_dns_managed_zone" "databricks-private-zone" {
+  depends_on = [ databricks_mws_workspaces.databricks_workspace ]
+  provider = google
+  name        = var.private_zone_name
+  dns_name    = var.dns_name
+  description = "Databricks private DNS zone"
+  visibility = "private"
+  private_visibility_config {
+    networks {
+      network_url = "https://www.googleapis.com/compute/v1/projects/${var.google_project_name}/global/networks/${var.google_vpc_id}"
+    }
+  }
+}
 
-# locals {
-#    workspace_id = regex("[0-9]+\\.[0-9]+", databricks_mws_workspaces.databricks_workspace.workspace_url) 
-# }
+locals {
+   workspace_id = regex("[0-9]+\\.[0-9]+", databricks_mws_workspaces.databricks_workspace.workspace_url) 
+}
 
-# output "extracted_value" {
-#   value = "workspace id: ${local.workspace_id}"
-# }
+output "extracted_value" {
+  value = "workspace id: ${local.workspace_id}"
+}
 
 # /* 
 # Add A records for backend and frontend private endpoints
@@ -47,64 +47,64 @@
 
 # */
 
-# resource "google_dns_record_set" "record_set_workspace_url" {
-#   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
-#   provider = google.vpc_project
-#   managed_zone = google_dns_managed_zone.databricks-private-zone.name
-#   name         = "${local.workspace_id}.${google_dns_managed_zone.databricks-private-zone.dns_name}"
-#   type         = "A"
-#   ttl          = 300
+resource "google_dns_record_set" "record_set_workspace_url" {
+  depends_on = [ databricks_mws_workspaces.databricks_workspace ]
+  provider = google
+  managed_zone = google_dns_managed_zone.databricks-private-zone.name
+  name         = "${local.workspace_id}.${google_dns_managed_zone.databricks-private-zone.dns_name}"
+  type         = "A"
+  ttl          = 300
 
 
-#   rrdatas = [
-#     "${google_compute_address.frontend_pe_ip_address.address}"
-#   ]
+  rrdatas = [
+    "${google_compute_address.frontend_pe_ip_address.address}"
+  ]
 
   
 
-# }
-# resource "google_dns_record_set" "record_set_workspace_psc_auth" {
-#   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
-#   provider = google.vpc_project
-#   managed_zone = google_dns_managed_zone.databricks-private-zone.name
-#   name         = "${var.google_region}.psc-auth.${google_dns_managed_zone.databricks-private-zone.dns_name}"
-#   type         = "A"
-#   ttl          = 300
+}
+resource "google_dns_record_set" "record_set_workspace_psc_auth" {
+  depends_on = [ databricks_mws_workspaces.databricks_workspace ]
+  provider = google
+  managed_zone = google_dns_managed_zone.databricks-private-zone.name
+  name         = "${var.google_region}.psc-auth.${google_dns_managed_zone.databricks-private-zone.dns_name}"
+  type         = "A"
+  ttl          = 300
 
 
-#   rrdatas = [
-#     "${google_compute_address.frontend_pe_ip_address.address}"
-#   ]
+  rrdatas = [
+    "${google_compute_address.frontend_pe_ip_address.address}"
+  ]
 
-# }
+}
 
-# resource "google_dns_record_set" "record_set_workspace_dp" {
-#   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
-#   provider = google.vpc_project
-#   managed_zone = google_dns_managed_zone.databricks-private-zone.name
-#   name         = "dp-${local.workspace_id}.${google_dns_managed_zone.databricks-private-zone.dns_name}"
-#   type         = "A"
-#   ttl          = 300
-
-
-#   rrdatas = [
-#     "${google_compute_address.frontend_pe_ip_address.address}"
-#   ]
-
-# }
+resource "google_dns_record_set" "record_set_workspace_dp" {
+  depends_on = [ databricks_mws_workspaces.databricks_workspace ]
+  provider = google
+  managed_zone = google_dns_managed_zone.databricks-private-zone.name
+  name         = "dp-${local.workspace_id}.${google_dns_managed_zone.databricks-private-zone.dns_name}"
+  type         = "A"
+  ttl          = 300
 
 
-# resource "google_dns_record_set" "record_set_relay" {
-#   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
-#   provider = google.vpc_project
-#   managed_zone = google_dns_managed_zone.databricks-private-zone.name
-#   name         = "tunnel.${var.google_region}.${google_dns_managed_zone.databricks-private-zone.dns_name}"
-#   type         = "A"
-#   ttl          = 300
+  rrdatas = [
+    "${google_compute_address.frontend_pe_ip_address.address}"
+  ]
+
+}
 
 
-#   rrdatas = [
-#     "${google_compute_address.backend_pe_ip_address.address}"
-#   ]
+resource "google_dns_record_set" "record_set_relay" {
+  depends_on = [ databricks_mws_workspaces.databricks_workspace ]
+  provider = google
+  managed_zone = google_dns_managed_zone.databricks-private-zone.name
+  name         = "tunnel.${var.google_region}.${google_dns_managed_zone.databricks-private-zone.dns_name}"
+  type         = "A"
+  ttl          = 300
 
-# }
+
+  rrdatas = [
+    "${google_compute_address.backend_pe_ip_address.address}"
+  ]
+
+}
