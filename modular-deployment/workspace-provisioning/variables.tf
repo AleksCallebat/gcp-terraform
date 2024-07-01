@@ -14,18 +14,20 @@ variable "gke_master_ip_range" {}
 variable "pod_subnet_name" {}
 variable "node_subnet_name" {}
 variable "service_subnet_name" {}
-variable "subnet_ip_cidr_range" {}
-variable "pod_ip_cidr_range" {}
-variable "svc_ip_cidr_range" {}
+# variable "subnet_ip_cidr_range" {}
+# variable "pod_ip_cidr_range" {}
+# variable "svc_ip_cidr_range" {}
 variable "private_zone_name" {}
 variable "dns_name" {}
 
 
 variable "google_pe_subnet_name" {}
-variable "google_pe_subnet_range" {}
+# variable "google_pe_subnet_range" {}
 variable "workspace_pe_name" {}
 variable "relay_pe_name" {}
 variable "workspace_pe_ip_name" {}
+variable "relay_pe_ip_name" {}
+
 
 variable "databricks_account_console_url" {}
 variable "databricks_workspace_name" {}

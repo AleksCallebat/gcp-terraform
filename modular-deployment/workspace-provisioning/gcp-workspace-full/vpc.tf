@@ -1,8 +1,13 @@
-variable "pod_ip_cidr_range" {}
-variable "svc_ip_cidr_range" {}
-variable "subnet_ip_cidr_range" {}
+# variable "pod_ip_cidr_range" {}
+# variable "svc_ip_cidr_range" {}
+# variable "subnet_ip_cidr_range" {}
 # variable "router_name" {}
 # variable "nat_name" {}
+variable "node_subnet_name" {}
+variable "pod_subnet_name" {}
+variable "service_subnet_name" {}
+# variable "gke_master_ip_range" {}
+
 
 
 resource "databricks_mws_networks" "databricks_network" {
@@ -15,12 +20,12 @@ resource "databricks_mws_networks" "databricks_network" {
     network_project_id    = var.google_project_name
     vpc_id                = var.google_vpc_id
     subnet_id             = var.node_subnet_name
-    subnet_region         = var.google_region
     pod_ip_range_name     = var.pod_subnet_name
     service_ip_range_name = var.service_subnet_name
+    subnet_region         = var.google_region
   }
    vpc_endpoints {
     dataplane_relay = [databricks_mws_vpc_endpoint.relay_vpce.vpc_endpoint_id]
-    rest_api        = [data.databricks_mws_vpc_endpoint.workspace_vpce.vpc_endpoint_id]
+    rest_api        = [databricks_mws_vpc_endpoint.workspace_vpce.vpc_endpoint_id]
   }
 }

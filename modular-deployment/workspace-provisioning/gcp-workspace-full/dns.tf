@@ -2,6 +2,27 @@
 
 variable private_zone_name {}
 variable dns_name {}
+variable "relay_pe_ip_name" {}
+
+data "google_compute_subnetwork" "subnet-psc-endpoint" {
+  name          = "${var.google_pe_subnet_name}"
+  project = var.google_project_name
+  region        = var.google_region
+}
+
+data "google_compute_address" "relay_pe_ip_address" {
+  name         = "${var.relay_pe_ip_name}"
+  provider     = google
+  project      = var.google_project_name
+  region       = var.google_region
+}
+
+data "google_compute_address" "frontend_pe_ip_address" {
+  name         = "${var.workspace_pe_ip_name}"
+  provider     = google
+  project      = var.google_project_name
+  region       = var.google_region
+}
 
 resource "google_dns_managed_zone" "databricks-private-zone" {
   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
@@ -57,7 +78,7 @@ resource "google_dns_record_set" "record_set_workspace_url" {
 
 
   rrdatas = [
-    "${google_compute_address.frontend_pe_ip_address.address}"
+    "${data.google_compute_address.frontend_pe_ip_address.address}"
   ]
 
   
@@ -71,9 +92,8 @@ resource "google_dns_record_set" "record_set_workspace_psc_auth" {
   type         = "A"
   ttl          = 300
 
-
   rrdatas = [
-    "${google_compute_address.frontend_pe_ip_address.address}"
+    "${data.google_compute_address.frontend_pe_ip_address.address}"
   ]
 
 }
@@ -88,7 +108,7 @@ resource "google_dns_record_set" "record_set_workspace_dp" {
 
 
   rrdatas = [
-    "${google_compute_address.frontend_pe_ip_address.address}"
+    "${data.google_compute_address.frontend_pe_ip_address.address}"
   ]
 
 }
@@ -104,7 +124,7 @@ resource "google_dns_record_set" "record_set_relay" {
 
 
   rrdatas = [
-    "${google_compute_address.backend_pe_ip_address.address}"
+    "${data.google_compute_address.relay_pe_ip_address.address}"
   ]
 
 }

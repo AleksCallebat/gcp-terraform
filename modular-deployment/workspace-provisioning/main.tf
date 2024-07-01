@@ -21,15 +21,16 @@ module "gcp-workspace-full" {
   dns_name = var.dns_name 
 
 
-  pod_ip_cidr_range = var.pod_ip_cidr_range 
-  subnet_ip_cidr_range = var.subnet_ip_cidr_range
-  svc_ip_cidr_range = var.svc_ip_cidr_range
+  # pod_ip_cidr_range = var.pod_ip_cidr_range 
+  # subnet_ip_cidr_range = var.subnet_ip_cidr_range
+  # svc_ip_cidr_range = var.svc_ip_cidr_range
   workspace_creator_sa_name = var.workspace_creator_sa_name 
   google_pe_subnet_name = var.google_pe_subnet_name
-  google_pe_subnet_range = var.google_pe_subnet_range
+  # google_pe_subnet_range = var.google_pe_subnet_range
   workspace_pe_name = var.workspace_pe_name
   relay_pe_name = var.relay_pe_name
   workspace_pe_ip_name = var.workspace_pe_ip_name
+  relay_pe_ip_name = var.relay_pe_ip_name 
 
   
 }

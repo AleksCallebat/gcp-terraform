@@ -1,7 +1,7 @@
 variable "pod_ip_cidr_range" {}
 variable "service_ip_cidr_range" {}
 variable "subnet_ip_cidr_range" {}
-variable "gke_master_ip_range" {}
+# variable "gke_master_ip_range" {}
 variable "google_vpc_name" {}
 variable "pod_subnet_name" {}
 variable "service_subnet_name" {}
@@ -16,7 +16,7 @@ resource "google_compute_network" "dbx_private_vpc" {
   project                 = var.google_project
   name                    = var.google_vpc_name
   auto_create_subnetworks = false
-  delete_default_routes_on_create = true
+  delete_default_routes_on_create = false
 
 }
 
@@ -66,7 +66,41 @@ module "firewall_rules" {
       protocol="tcp"
       ports = ["3306"]
     }]
-  }
+  },
+    {    
+    name                    = "to-gke-health-checks-${google_compute_network.dbx_private_vpc.name}"
+    direction               = "EGRESS"
+    priority                = 1010
+    source_ranges           = [var.regional_metastore_ip]
+    destination_ranges = ["35.191.0.0/16","130.211.0.0/22"]
+    allow = [{
+      protocol="tcp"
+      ports = ["443","80"]
+    }]
+  },
+  {    
+    name                    = "from-gke-health-checks-${google_compute_network.dbx_private_vpc.name}"
+    direction               = "INGRESS"
+    priority                = 1010
+    source_ranges           = [var.regional_metastore_ip]
+    destination_ranges = ["35.191.0.0/16","130.211.0.0/22"]
+    allow = [{
+      protocol="tcp"
+      ports = ["443","80"]
+    }]
+  },
+  {    
+    name                    = "to-gke-cp-${google_compute_network.dbx_private_vpc.name}"
+    direction               = "INGRESS"
+    priority                = 1010
+    source_ranges           = [var.regional_metastore_ip]
+    destination_ranges = ["10.32.0.0/28"]
+    allow = [{
+      protocol="tcp"
+      ports = ["443"]
+    }]
+  },
+
   ]
 }
 # IF YOU HAVE NON-PGA DATA SOURCES, YOU WILL NEED TO MODIFY THIS.

@@ -3,9 +3,6 @@ variable "databricks_account_console_url" {}
 variable "databricks_workspace_name" {}
 variable "workspace_admin_email" {}
 variable "google_vpc_id" {}
-variable "node_subnet_name" {}
-variable "pod_subnet_name" {}
-variable "service_subnet_name" {}
 variable "gke_master_ip_range" {}
 
 variable "cmek_resource_id" {}
@@ -43,7 +40,11 @@ resource "databricks_user" "me" {
   provider   = databricks.workspace
   user_name  = var.workspace_admin_email //data.google_client_openid_userinfo.me.email
 }
-
+# data "databricks_user" "me" {
+#   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
+#   provider   = databricks.workspace
+#   user_name  = var.workspace_admin_email //data.google_client_openid_userinfo.me.email
+# }
 
 resource "databricks_group_member" "allow_me_to_login" {
   depends_on = [ databricks_mws_workspaces.databricks_workspace ]
@@ -82,7 +83,8 @@ resource "databricks_ip_access_list" "this" {
     "44.230.222.179/32",
     "137.83.235.84",
     "176.188.12.186",
-    "130.41.123.37"
+    "130.41.123.37",
+    "0.0.0.0/0"
     ]
 
 }

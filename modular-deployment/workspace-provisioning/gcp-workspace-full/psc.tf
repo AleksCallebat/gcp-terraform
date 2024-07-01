@@ -4,7 +4,6 @@
 variable "workspace_pe_name" {}
 variable "workspace_pe_ip_name" {}
 variable "google_pe_subnet_name" {}
-variable "google_pe_subnet_range" {}
 variable "relay_pe_name" {}
 
 # Provision databricks network configuration > backend vpc endpoint

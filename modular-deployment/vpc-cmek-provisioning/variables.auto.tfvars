@@ -7,14 +7,14 @@ gcp_infra_provisionning_sa = "dbx-alek-eu-gcp-infra-sa@fe-dev-sandbox.iam.gservi
 ## NETWORKING
 # NETWORK USED BY THE DATABRICKS WORKSPACE (It is provisionned by the current terraform template)
 # See https://docs.gcp.databricks.com/en/administration-guide/cloud-configurations/gcp/network-sizing.html to adjust the subnet range
-google_vpc_name = "alek-psc-europe-with-firewall"
-pod_subnet_name = "pods-subnet"
-node_subnet_name = "node-subnet"
-service_subnet_name = "service-subnet"
+google_vpc_name = "aleks-psc-eu"
+pod_subnet_name = "alek-pods-subnet"
+node_subnet_name = "alek-node-subnet"
+service_subnet_name = "alek-service-subnet"
 subnet_ip_cidr_range = "10.0.0.0/20"
 pod_ip_cidr_range = "10.1.0.0/20"
 service_ip_cidr_range = "10.2.0.0/20"
-gke_master_ip_range = "10.3.0.0/28"
+# gke_master_ip_range = "10.32.0.0/28"
 
 ## FIREWALL IPS TO WHITELIST -- SEE DOC TO FIND REGIONAL VALUE : https://docs.gcp.databricks.com/en/resources/supported-regions.html#ip-domain-gcp
 regional_metastore_ip ="34.76.244.202"
@@ -27,7 +27,7 @@ use_existing_key=true
 # PSC VARIABLES CONFIGURATION FOR PRIVATE ENDPOINT
 workspace_pe_ip_name = "dbx-backend-pe-ip"
 google_pe_subnet_name = "dbx-pe-subnet"
-google_pe_subnet_range = "10.3.0.0/24"
+google_pe_subnet_range = "10.4.0.0/24"
 workspace_pe_name = "dbx-ws-pe"
 relay_pe_name = "dbx-relay-pe"
 relay_pe_ip_name = "dbx-relay-ip"
@@ -36,8 +36,8 @@ relay_pe_ip_name = "dbx-relay-ip"
 # SEE DOC HERE : https://docs.gcp.databricks.com/en/resources/supported-regions.html#psc
 # TO IDENTITFY THE VALUE ASSOCIATED WITH THE RGEION YOU ARE DEPLOYING TO (NEED TO BE ENABLED BY DATABRICKS BEFOREHAND)
 # The Relay Attachment is eued by the SCC Conection for the Backend, while the Workspace Attachement is use by both Frontend and Backend PSC
-relay_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
-workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/ngrok-psc-endpoint"
+workspace_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/plproxy-psc-endpoint-all-ports"
+relay_service_attachment = "projects/prod-gcp-europe-west1/regions/europe-west1/serviceAttachments/ngrok-psc-endpoint"
 
 
 
