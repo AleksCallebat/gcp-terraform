@@ -71,7 +71,6 @@ module "firewall_rules" {
     name                    = "to-gke-health-checks-${google_compute_network.dbx_private_vpc.name}"
     direction               = "EGRESS"
     priority                = 1010
-    source_ranges           = [var.regional_metastore_ip]
     destination_ranges = ["35.191.0.0/16","130.211.0.0/22"]
     allow = [{
       protocol="tcp"
@@ -82,7 +81,6 @@ module "firewall_rules" {
     name                    = "from-gke-health-checks-${google_compute_network.dbx_private_vpc.name}"
     direction               = "INGRESS"
     priority                = 1010
-    source_ranges           = [var.regional_metastore_ip]
     destination_ranges = ["35.191.0.0/16","130.211.0.0/22"]
     allow = [{
       protocol="tcp"
@@ -91,15 +89,32 @@ module "firewall_rules" {
   },
   {    
     name                    = "to-gke-cp-${google_compute_network.dbx_private_vpc.name}"
-    direction               = "INGRESS"
+    direction               = "EGRESS"
     priority                = 1010
-    source_ranges           = [var.regional_metastore_ip]
     destination_ranges = ["10.32.0.0/28"]
     allow = [{
       protocol="tcp"
-      ports = ["443"]
+      ports = ["443","10250"]
     }]
   },
+  {    
+    name                    = "to-google-apis-${google_compute_network.dbx_private_vpc.name}"
+    direction               = "EGRESS"
+    priority                = 1010
+    destination_ranges = ["199.36.153.4/30"]
+    allow = [{
+      protocol="all"
+    }]
+  },
+  {    
+    name                    = "to-gke-nodes-subnet-${google_compute_network.dbx_private_vpc.name}"
+    direction               = "EGRESS"
+    priority                = 1010
+    destination_ranges = [var.subnet_ip_cidr_range,var.pod_ip_cidr_range,var.service_ip_cidr_range]
+    allow = [{
+      protocol="all"
+    }]
+  }
 
   ]
 }
